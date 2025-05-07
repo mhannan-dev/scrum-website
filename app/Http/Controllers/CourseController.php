@@ -23,24 +23,23 @@ class CourseController extends Controller
         $data['pageTitle'] = "Create Course";
         $data['categories'] = Category::pluck('title', 'id');
         $data['trainers'] = User::where('type', 'trainer')->pluck('name', 'id');
-        $data['parentCategories'] = Category::whereNull('parent_id')->get();
+        $data['categories'] = Category::whereNotNull('parent_id')->get();
         $data['buttonText'] = "Save";
         return view('admin.courses.create', $data);
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
-            'details' => 'nullable|string',
+            'description' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'user_id' => 'required|exists:users,id',
         ]);
-
-        $validated['slug'] = Str::slug($validated['name']);
-
-        Course::create($validated);
-
+        $course = new Course();
+        $fillableData = $request->only($course->getFillable());
+        $fillableData['slug'] = $this->slugGenerate();
+        $course->create($fillableData);
         return redirect()->route('dashboard.courses.index')->with('success', 'Course created successfully.');
     }
 
@@ -61,17 +60,15 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'details' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'user_id' => 'required|exists:users,id',
         ]);
-
-        $validated['slug'] = Str::slug($validated['name']);
-
-        $course->update($validated);
-
+        $fillableData = $request->only($course->getFillable());
+        $fillableData['slug'] = $this->slugGenerate($course->id);
+        $course->update($fillableData);
         return redirect()->route('dashboard.courses.index')->with('success', 'Course updated successfully.');
     }
 
@@ -79,5 +76,17 @@ class CourseController extends Controller
     {
         $course->delete();
         return redirect()->route('dashboard.courses.index')->with('success', 'Course deleted successfully.');
+    }
+
+
+    private function slugGenerate($id = null){
+        $slug = Str::slug(request()->name);
+        $counts = Course::where('slug',$slug)->when($id,function($q) use($id) {
+            $q->where('id','<>', $id);
+        })->count();
+        if(!empty($counts)){
+            $slug += "-".$counts;
+        }
+        return $slug;
     }
 }

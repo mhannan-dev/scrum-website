@@ -27,7 +27,7 @@ class TrainerController extends Controller
     {
         $data['pageTitle'] = "Create User";
         $data['buttonText'] = "Save";
-        $data['parentCategories'] = Category::whereNull('parent_id')->get();
+        $data['parentCategories'] = Category::orderBy('title','asc')->get();
         return view('admin.trainers.create', $data);
     }
 
@@ -35,6 +35,7 @@ class TrainerController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'nullable|string|max:255',
             'social_links' => 'nullable|array',
             'category_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -70,7 +71,7 @@ class TrainerController extends Controller
         $data['buttonText'] = "Update";
         $data['trainer'] = $trainer;
         $data['pageTitle'] = "Edit User";
-        $data['parentCategories'] = Category::whereNull('parent_id')->get();
+        $data['parentCategories'] = Category::orderBy('title','asc')->get();
         return view('admin.trainers.edit', $data);
     }
 
@@ -80,8 +81,9 @@ class TrainerController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $trainer->id,
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $trainer->id,
             'social_links' => 'nullable|array',
+            'category_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'status' => 'nullable',
         ]);

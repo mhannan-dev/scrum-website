@@ -26,6 +26,19 @@
         @csrf
         @method('PUT')
 
+        <div class="form-group">
+            <label for="category_id">Parent Category (optional)</label>
+            <select name="category_id" id="category_id" class="form-control select2">
+                <option value="">None</option>
+                @foreach ($parentCategories as $parent)
+                    <option value="{{ $parent->id }}" {{ $trainer->category_id == $parent->id ? 'selected' : '' }}>
+                        {{ $parent->title }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        
+
         <div class="mb-3">
             <label for="name" class="form-label">Trainer Name <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="name" id="name"

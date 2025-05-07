@@ -353,7 +353,7 @@
                 <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
                     <div class="events_item">
                         <div class="thumb">
-                            <a href="#"><img src="assets/images/course-01.jpg" alt=""></a>
+                            <a href="#"><img src="{{asset('frontend/assets/images/course-01.jpg')}}" alt=""></a>
                             <!-- <span class="category">Webdesign</span> -->
                             <span class="category">Project Management</span>
                             <span class="price">
@@ -371,7 +371,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-04.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-04.jpg')}}" alt=""></a>
                                 <!-- <span class="category">Webdesign</span> -->
                                 <span class="category">Project Management</span>
                                 <span class="price">
@@ -388,7 +388,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6  development">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-02.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-02.jpg')}}" alt=""></a>
                                 <!-- <span class="category">Development</span> -->
                                 <span class="category">Agile Development</span>
                                 <span class="price">
@@ -405,7 +405,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-03.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-03.jpg')}}" alt=""></a>
                                 <span class="category">Agile Development</span>
                                 <span class="price">
                                     <h6><em>Tk</em>--</h6>
@@ -421,7 +421,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-04.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-04.jpg')}}" alt=""></a>
                                 <span class="category">Agile Development</span>
                                 <span class="price">
                                     <h6><em>Tk</em>--</h6>
@@ -438,7 +438,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-02.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-02.jpg')}}" alt=""></a>
                                 <span class="category">Agile Development</span>
                                 <span class="price">
                                     <h6><em>Tk</em>--</h6>
@@ -455,7 +455,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-02.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-02.jpg')}}" alt=""></a>
                                 <span class="category">Agile Development</span>
                                 <span class="price">
                                     <h6><em>Tk</em>--</h6>
@@ -471,7 +471,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-04.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-04.jpg')}}" alt=""></a>
                                 <span class="category">Agile Development</span>
                                 <span class="price">
                                     <h6><em>Tk</em>--</h6>
@@ -487,7 +487,7 @@
                     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design wordpress">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#"><img src="assets/images/course-01.jpg" alt=""></a>
+                                <a href="#"><img src="{{asset('frontend/assets/images/course-01.jpg')}}" alt=""></a>
                                 <!-- <span class="category">Wordpress</span> -->
                                 <span class="category">Quality Management</span>
                                 <span class="price">
@@ -551,7 +551,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="team-member">
                                 <div class="main-content">
-                                    <img src="{{ asset('storage/' . $trainer->image) }}" alt="{{ $trainer->name }}"
+                                    <img src="{{ $trainer->image? url('storage/' . $trainer->image) : asset('frontend/assets/images/profile_blank.png') }}" alt="{{ $trainer->name }}"
                                         style="width: 100%; height: auto; object-fit: cover;">
 
                                     <span class="category">{{ $trainer->category->title ?? 'No Category' }}</span>
@@ -594,7 +594,7 @@
                                 <div class="item">
                                     <p>{{ $item->comment }}</p>
                                     <div class="author">
-                                        <img src="assets/images/testimonial-author.jpg" alt="">
+                                        <img src="{{asset('frontend/assets/images/testimonial-author.jpg')}}" alt="">
                                         <span class="category">{{ $item->designation ?? '' }}</span>
                                         <h4>{{ $item->user->name ?? '' }}</h4>
                                     </div>
