@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Batch;
-use App\Models\RegistrationMessage;
+use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\RegistrationMessage;
 
 class BatchController extends Controller
 {
@@ -19,8 +21,8 @@ class BatchController extends Controller
     {
         $data['pageTitle'] = "Batch Create";
         $data['buttonText'] = "Save";
-        // Assuming you have a Course model to list courses
-        $data['courses'] = \App\Models\Course::pluck('title', 'id');
+        $data['courses'] = Course::pluck('name', 'id');
+        $data['parentCategories'] = Category::whereNull('parent_id')->get();
         return view('admin.batches.create', $data);
     }
 
@@ -30,6 +32,7 @@ class BatchController extends Controller
             'course_id'         => 'required|exists:courses,id',
             'start_date'        => 'required|date',
             'end_date'          => 'required|date|after_or_equal:start_date',
+            'title'             => 'required',
             'start_time'        => 'required',
             'end_time'          => 'required',
             'timezone'          => 'required|string|max:100',
@@ -38,16 +41,24 @@ class BatchController extends Controller
             'discounted_price'  => 'nullable|numeric|min:0|lte:price',
         ]);
 
-        Batch::create($validated);
+        // Fetch the Course and get its user_id
+        $course = \App\Models\Course::findOrFail($validated['course_id']);
+        $validated['user_id'] = $course->user_id;
+
+        // Create the Batch
+        \App\Models\Batch::create($validated);
 
         return redirect()->route('dashboard.batches.index')->with('success', 'Batch created successfully.');
     }
+
 
     public function edit(Batch $batch)
     {
         $data['batch'] = $batch;
         $data['buttonText'] = "Update";
-        $data['courses'] = \App\Models\Course::pluck('title', 'id');
+        $data['pageTitle'] = "Batch update";
+        $data['courses'] = Course::pluck('name', 'id');
+        $data['parentCategories'] = Category::whereNull('parent_id')->get();
         return view('admin.batches.edit', $data);
     }
 
@@ -57,6 +68,7 @@ class BatchController extends Controller
             'course_id'         => 'required|exists:courses,id',
             'start_date'        => 'required|date',
             'end_date'          => 'required|date|after_or_equal:start_date',
+            'title'             => 'required',
             'start_time'        => 'required',
             'end_time'          => 'required',
             'timezone'          => 'required|string|max:100',
@@ -65,10 +77,16 @@ class BatchController extends Controller
             'discounted_price'  => 'nullable|numeric|min:0|lte:price',
         ]);
 
+        // Set status based on checkbox (checkbox value = "on" if checked)
+        $validated['status'] = $request->boolean('status');
+
         $batch->update($validated);
 
         return redirect()->route('dashboard.batches.index')->with('success', 'Batch updated successfully.');
     }
+
+
+
 
     public function destroy(Batch $batch)
     {

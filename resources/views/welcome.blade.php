@@ -332,180 +332,48 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Category Filters --}}
             <ul class="event_filter">
-                <li>
-                    <a class="is_active" href="#!" data-filter="*">Show All</a>
-                </li>
-                <li>
-                    <!-- <a href="#!" data-filter=".design">Webdesign</a> -->
-                    <a href="#!" data-filter=".design">Project Management</a>
-                </li>
-                <li>
-                    <!-- <a href="#!" data-filter=".development">Development</a> -->
-                    <a href="#!" data-filter=".development">Agile Development</a>
-                </li>
-                <li>
-                    <!-- <a href="#!" data-filter=".wordpress">Wordpress</a> -->
-                    <a href="#!" data-filter=".wordpress">Quality Management</a>
-                </li>
+                <li><a class="is_active" href="#!" data-filter="*">Show All</a></li>
+                @foreach($categories as $category)
+                    <li>
+                        <a href="#!" data-filter=".{{ Str::slug($category->title) }}">
+                            {{ $category->title }}
+                        </a>
+                    </li>
+                @endforeach
             </ul>
+
+            {{-- Courses Grid --}}
             <div class="row event_box">
-                <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
-                    <div class="events_item">
-                        <div class="thumb">
-                            <a href="#"><img src="{{asset('frontend/assets/images/course-01.jpg')}}" alt=""></a>
-                            <!-- <span class="category">Webdesign</span> -->
-                            <span class="category">Project Management</span>
-                            <span class="price">
-                                <h6><em>Tk</em>--</h6>
-                            </span>
-                        </div>
-                        <div class="down-content">
-                            <span class="author">Stella Blair</span>
-                            <h4>Project Management Professional (PMP)</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row event_box">
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-04.jpg')}}" alt=""></a>
-                                <!-- <span class="category">Webdesign</span> -->
-                                <span class="category">Project Management</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">Stella Blair</span>
-                                <h4>PMI Agile Certified Practitioner (PMI-ACP)</h4>
+                @foreach($categories as $category)
+                    @foreach($category->courses as $course)
+                        <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer {{ Str::slug($category->title) }}">
+                            <div class="events_item">
+                                <div class="thumb">
+                                    <a href="#">
+                                        <img src="{{ asset($course->image ?? 'frontend/assets/images/course-default.jpg') }}" alt="{{ $course->name }}">
+                                    </a>
+                                    <span class="category">{{ $category->title }}</span>
+                                    <span class="price">
+                                        <h6><em>Tk</em>{{ $course->price ?? '--' }}</h6>
+                                    </span>
+                                </div>
+                                <div class="down-content">
+                                    <span class="author">{{ $course->trainer->name ?? 'Unknown' }}</span>
+                                    <h4>{{ $course->name }}</h4>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6  development">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-02.jpg')}}" alt=""></a>
-                                <!-- <span class="category">Development</span> -->
-                                <span class="category">Agile Development</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">Cindy Walker</span>
-                                <h4>Certified Scrum Master (CSM) </h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-03.jpg')}}" alt=""></a>
-                                <span class="category">Agile Development</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">Stella Blair</span>
-                                <h4>Certified Scrum Product Owner (CSPO)</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-04.jpg')}}" alt=""></a>
-                                <span class="category">Agile Development</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">Stella Blair</span>
-                                <h4>Certified Scrum Developer (CSD)</h4>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-02.jpg')}}" alt=""></a>
-                                <span class="category">Agile Development</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">Stella Blair</span>
-                                <h4>Registered Scrum Master (RSM)</h4>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-02.jpg')}}" alt=""></a>
-                                <span class="category">Agile Development</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">Stella Blair</span>
-                                <h4>Registered Product Owner (RPO)</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-04.jpg')}}" alt=""></a>
-                                <span class="category">Agile Development</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">Stella Blair</span>
-                                <h4>Professional Scrum Master I (PSM I)</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design wordpress">
-                        <div class="events_item">
-                            <div class="thumb">
-                                <a href="#"><img src="{{asset('frontend/assets/images/course-01.jpg')}}" alt=""></a>
-                                <!-- <span class="category">Wordpress</span> -->
-                                <span class="category">Quality Management</span>
-                                <span class="price">
-                                    <h6><em>Tk</em>--</h6>
-                                </span>
-                            </div>
-                            <div class="down-content">
-                                <span class="author">David Hutson</span>
-                                <h4>Lean Six Sigma Black Belt (LSSBB)</h4>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
+                    @endforeach
+                @endforeach
             </div>
+        </div>
     </section>
+
+
+
 
     <div class="section fun-facts">
         <div class="container">

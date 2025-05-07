@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\User;
+use App\Models\Category;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,10 @@ class SiteController extends Controller
     public function welcome(){
         $data['testimonials'] = Testimonial::get();
         $data['trainers'] = User::with(['category'])->where('type', 'trainer')->get();
+
+         $data['categories'] = Category::with(['children', 'courses' => function ($query) {
+            $query->where('status', 1);
+        }])->whereNull('parent_id')->get();
         return view('welcome', $data);
     }
     public function registrationMessage(Request $request)

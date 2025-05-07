@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pageContent')
-<div class="container py-4">
+<div class=" py-4">
     <h2 class="mb-4">{{ $pageTitle }}</h2>
 
     @if (session('success'))
