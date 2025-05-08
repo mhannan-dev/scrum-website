@@ -8,9 +8,9 @@ use App\Models\Batch;
 use App\Models\Category;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\RegistrationMessage;
+use App\Models\Slider;
 
 class SiteController extends Controller
 {
@@ -18,6 +18,7 @@ class SiteController extends Controller
     {
         $data['testimonials'] = Testimonial::get();
         $data['trainers'] = User::with(['category'])->where('type', 'trainer')->get();
+        $data['sliders'] = Slider::active()->inRandomOrder()->take(3)->get();
 
         $data['categories'] = Category::with(['children', 'courses' => function ($query) {
             $query->where('status', 1);

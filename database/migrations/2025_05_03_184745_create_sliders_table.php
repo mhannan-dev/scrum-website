@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
-            $table->string('top_button')->nullable();
+            $table->string('top_button_text')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('big_button')->nullable();
-            $table->string('main_button')->nullable();
+            $table->string('main_button_text')->nullable();
             $table->string('main_button_link')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

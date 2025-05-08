@@ -114,37 +114,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="owl-carousel owl-banner">
-                        <div class="item item-1">
-                            <div class="header-text">
-                                <span class="category">Our Courses</span>
-                                <h2>With Global Experts, Everything Is Easier.</h2>
-                                <p><strong>Global Experts Ltd.</strong> is a premier training provider specializing in
-                                    professional certification courses such as PMP, CSM, CSPO, Six Sigma, and more. We
-                                    offer expert-led, in-person training designed to help professionals enhance their
-                                    skills, achieve industry-recognized certifications, and advance their careers. Our
-                                    structured courses, experienced trainers, and hands-on learning approach ensure
-                                    maximum knowledge retention and real-world application.</p>
-                                <p><strong>Join Global Experts Ltd. to unlock new career opportunities and stay ahead in
-                                        today’s competitive job market. </strong></p>
-                                <div class="buttons">
-                                    <div class="main-button">
-                                        <a href="#">Request Demo</a>
-                                    </div>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-play"></i> What's Scholar?</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        @foreach ($sliders as $slider)
                         <div class="item item-2">
                             <div class="header-text">
-                                <span class="category">Best Result</span>
-                                <h2>Get the best result out of your effort</h2>
-                                <p>You are allowed to use this template for any educational or commercial purpose. You
-                                    are not allowed to re-distribute the template ZIP file on any other website.</p>
+                                <span class="category">{{ $slider->top_button }}</span>
+                                <h2>{{ $slider->title }}</h2>
+                                <p>{{ $slider->description }}</p>
                                 <div class="buttons">
                                     <div class="main-button">
-                                        <a href="#">Request Demo</a>
+                                        <a href="{{ $slider->main_button_link }}">{{ $slider->main_button }}</a>
                                     </div>
                                     <div class="icon-button">
                                         <a href="#"><i class="fa fa-play"></i> What's the best result?</a>
@@ -152,22 +131,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item item-3">
-                            <div class="header-text">
-                                <span class="category">Online Learning</span>
-                                <h2>Online Learning helps you save the time</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporious
-                                    incididunt ut labore et dolore magna aliqua suspendisse.</p>
-                                <div class="buttons">
-                                    <div class="main-button">
-                                        <a href="#">Request Demo</a>
-                                    </div>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-play"></i> What's Online Course?</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        @endforeach
+
                     </div>
                 </div>
             </div>

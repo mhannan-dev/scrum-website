@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slider extends Model
 {
+
+    protected $fillable = [
+        'title',
+        'top_button',
+        'description',
+        'image',
+        'big_button',
+        'main_button',
+        'main_button_link',
+        'status',
+    ];
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);

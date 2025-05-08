@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             TrainerSeeder::class,
             TestimonialSeeder::class,
+            SliderSeeder::class,
         ]);
     }
 
