@@ -10,11 +10,8 @@
 
     <title>Global Experts - IT Enable Training for All.</title>
 
-
     <!-- In your <head> section -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-
-
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('frontend') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -129,100 +126,103 @@
                                     maximum knowledge retention and real-world application.</p>
                                 <p><strong>Join Global Experts Ltd. to unlock new career opportunities and stay ahead in
                                         today’s competitive job market. </strong></p>
-                                <!--   <div class="buttons">
-                  <div class="main-button">
-                    <a href="#">Request Demo</a>
-                  </div>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-play"></i> What's Scholar?</a>
-                  </div>
-                </div> -->
+                                <div class="buttons">
+                                    <div class="main-button">
+                                        <a href="#">Request Demo</a>
+                                    </div>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-play"></i> What's Scholar?</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- <div class="item item-2">
-              <div class="header-text">
-                <span class="category">Best Result</span>
-                <h2>Get the best result out of your effort</h2>
-                <p>You are allowed to use this template for any educational or commercial purpose. You are not allowed to re-distribute the template ZIP file on any other website.</p>
-                <div class="buttons">
-                  <div class="main-button">
-                    <a href="#">Request Demo</a>
-                  </div>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-play"></i> What's the best result?</a>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-                        <!-- <div class="item item-3">
-              <div class="header-text">
-                <span class="category">Online Learning</span>
-                <h2>Online Learning helps you save the time</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporious incididunt ut labore et dolore magna aliqua suspendisse.</p>
-                <div class="buttons">
-                  <div class="main-button">
-                    <a href="#">Request Demo</a>
-                  </div>
-                  <div class="icon-button">
-                    <a href="#"><i class="fa fa-play"></i> What's Online Course?</a>
-                  </div>
-                </div>
-              </div>
-            </div> -->
+                        <div class="item item-2">
+                            <div class="header-text">
+                                <span class="category">Best Result</span>
+                                <h2>Get the best result out of your effort</h2>
+                                <p>You are allowed to use this template for any educational or commercial purpose. You
+                                    are not allowed to re-distribute the template ZIP file on any other website.</p>
+                                <div class="buttons">
+                                    <div class="main-button">
+                                        <a href="#">Request Demo</a>
+                                    </div>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-play"></i> What's the best result?</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item item-3">
+                            <div class="header-text">
+                                <span class="category">Online Learning</span>
+                                <h2>Online Learning helps you save the time</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporious
+                                    incididunt ut labore et dolore magna aliqua suspendisse.</p>
+                                <div class="buttons">
+                                    <div class="main-button">
+                                        <a href="#">Request Demo</a>
+                                    </div>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-play"></i> What's Online Course?</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--  <div class="services section" id="services">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-md-6">
-          <div class="service-item">
-            <div class="icon">
-              <img src="assets/images/service-01.png" alt="online degrees">
+    {{-- <div class="services section" id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="assets/images/service-01.png" alt="online degrees">
+                        </div>
+                        <div class="main-content">
+                            <h4>Online Degrees</h4>
+                            <p>Whenever you need free templates in HTML CSS, you just remember TemplateMo website.</p>
+                            <div class="main-button">
+                                <a href="#">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="assets/images/service-02.png" alt="short courses">
+                        </div>
+                        <div class="main-content">
+                            <h4>Short Courses</h4>
+                            <p>You can browse free templates based on different tags such as digital marketing, etc.</p>
+                            <div class="main-button">
+                                <a href="#">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="assets/images/service-03.png" alt="web experts">
+                        </div>
+                        <div class="main-content">
+                            <h4>Web Experts</h4>
+                            <p>You can start learning HTML CSS by modifying free templates from our website too.</p>
+                            <div class="main-button">
+                                <a href="#">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="main-content">
-              <h4>Online Degrees</h4>
-              <p>Whenever you need free templates in HTML CSS, you just remember TemplateMo website.</p>
-              <div class="main-button">
-                <a href="#">Read More</a>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="service-item">
-            <div class="icon">
-              <img src="assets/images/service-02.png" alt="short courses">
-            </div>
-            <div class="main-content">
-              <h4>Short Courses</h4>
-              <p>You can browse free templates based on different tags such as digital marketing, etc.</p>
-              <div class="main-button">
-                <a href="#">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="service-item">
-            <div class="icon">
-              <img src="assets/images/service-03.png" alt="web experts">
-            </div>
-            <div class="main-content">
-              <h4>Web Experts</h4>
-              <p>You can start learning HTML CSS by modifying free templates from our website too.</p>
-              <div class="main-button">
-                <a href="#">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
+    </div> --}}
+
 
     <div class="section about-us">
         <div class="container">
@@ -239,9 +239,12 @@
                             <div id="collapseOne" class="accordion-collapse collapse show"
                                 aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, we believe that every successful learning
-                                    journey starts with the right foundation. Whether you’re looking to enhance your
-                                    skills, earn a professional certification, or advance in your career, we are here to
+                                    At <strong>Global Experts Ltd.</strong>, we believe that every successful
+                                    learning
+                                    journey starts with the right foundation. Whether you’re looking to enhance
+                                    your
+                                    skills, earn a professional certification, or advance in your career, we are
+                                    here to
                                     guide you every step of the way.
                                 </div>
                             </div>
@@ -256,8 +259,10 @@
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, collaboration is at the heart of everything
-                                    we do. Our goal is to provide a seamless and engaging learning experience that
+                                    At <strong>Global Experts Ltd.</strong>, collaboration is at the heart of
+                                    everything
+                                    we do. Our goal is to provide a seamless and engaging learning experience
+                                    that
                                     empowers you to achieve professional success
                                 </div>
                             </div>
@@ -273,8 +278,10 @@
                             <div id="collapseThree" class="accordion-collapse collapse"
                                 aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, we are committed to delivering top-quality
-                                    professional training that helps individuals and organizations achieve success.
+                                    At <strong>Global Experts Ltd.</strong>, we are committed to delivering
+                                    top-quality
+                                    professional training that helps individuals and organizations achieve
+                                    success.
                                 </div>
                             </div>
                         </div>
@@ -289,8 +296,10 @@
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, your success is our priority. We go beyond
-                                    just training – we ensure you have unmatched support throughout your learning
+                                    At <strong>Global Experts Ltd.</strong>, your success is our priority. We go
+                                    beyond
+                                    just training – we ensure you have unmatched support throughout your
+                                    learning
                                     journey.
                                 </div>
                             </div>
@@ -301,17 +310,24 @@
                     <div class="section-heading">
                         <h6>About Us</h6>
                         <h2>What make us the best training provider?</h2>
-                        <p>At <strong>Global Experts Ltd.</strong>, we are passionate about empowering professionals
+                        <p>At <strong>Global Experts Ltd.</strong>, we are passionate about empowering
+                            professionals
                             with the skills and certifications needed to excel in today’s competitive world.</p>
 
-                        <P>Our expert-led, interactive training sessions focus on real-world applications, hands-on
-                            exercises, and industry best practices to ensure you gain valuable knowledge that can be
-                            applied immediately. Whether you're an individual looking to advance your career or an
-                            organization aiming to upskill your team, we provide tailored training solutions to meet
+                        <P>Our expert-led, interactive training sessions focus on real-world applications,
+                            hands-on
+                            exercises, and industry best practices to ensure you gain valuable knowledge that
+                            can be
+                            applied immediately. Whether you're an individual looking to advance your career or
+                            an
+                            organization aiming to upskill your team, we provide tailored training solutions to
+                            meet
                             your needs. </P>
 
-                        <p>With a commitment to quality, excellence, and ongoing support, Global Experts Ltd. is your
-                            trusted partner in professional development. Join us today and take the next step toward
+                        <p>With a commitment to quality, excellence, and ongoing support, Global Experts Ltd. is
+                            your
+                            trusted partner in professional development. Join us today and take the next step
+                            toward
                             success! </p>
                         <div class="main-button">
                             <!-- <a href="#">Discover More</a> -->
@@ -336,7 +352,7 @@
             {{-- Category Filters --}}
             <ul class="event_filter">
                 <li><a class="is_active" href="#!" data-filter="*">Show All</a></li>
-                @foreach($categories as $category)
+                @foreach ($categories as $category)
                     <li>
                         <a href="#!" data-filter=".{{ Str::slug($category->title) }}">
                             {{ $category->title }}
@@ -347,13 +363,15 @@
 
             {{-- Courses Grid --}}
             <div class="row event_box">
-                @foreach($categories as $category)
-                    @foreach($category->courses as $course)
-                        <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer {{ Str::slug($category->title) }}">
+                @foreach ($categories as $category)
+                    @foreach ($category->courses as $course)
+                        <div
+                            class="col-lg-4 col-md-6 align-self-center mb-30 event_outer {{ Str::slug($category->title) }}">
                             <div class="events_item">
                                 <div class="thumb">
                                     <a href="#">
-                                        <img src="{{ asset($course->image ?? 'frontend/assets/images/course-default.jpg') }}" alt="{{ $course->name }}">
+                                        <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}">
+
                                     </a>
                                     <span class="category">{{ $category->title }}</span>
                                     <span class="price">
@@ -419,7 +437,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="team-member">
                                 <div class="main-content">
-                                    <img src="{{ $trainer->image? url('storage/' . $trainer->image) : asset('frontend/assets/images/profile_blank.png') }}" alt="{{ $trainer->name }}"
+                                    <img src="{{ $trainer->image ? url('storage/' . $trainer->image) : asset('frontend/assets/images/profile_blank.png') }}"
+                                        alt="{{ $trainer->name }}"
                                         style="width: 100%; height: auto; object-fit: cover;">
 
                                     <span class="category">{{ $trainer->category->title ?? 'No Category' }}</span>
@@ -462,7 +481,8 @@
                                 <div class="item">
                                     <p>{{ $item->comment }}</p>
                                     <div class="author">
-                                        <img src="{{asset('frontend/assets/images/testimonial-author.jpg')}}" alt="">
+                                        <img src="{{ asset('frontend/assets/images/testimonial-author.jpg') }}"
+                                            alt="">
                                         <span class="category">{{ $item->designation ?? '' }}</span>
                                         <h4>{{ $item->user->name ?? '' }}</h4>
                                     </div>
@@ -474,7 +494,8 @@
                         <div class="section-heading">
                             <h6>TESTIMONIALS</h6>
                             <h2>What they say about us?</h2>
-                            <p>At <strong>Global Experts Ltd.</strong>, our success is measured by the achievements of
+                            <p>At <strong>Global Experts Ltd.</strong>, our success is measured by the
+                                achievements of
                                 our
                                 trainees. Here’s what professionals who have trained with us have to say.</p>
                         </div>
@@ -492,102 +513,51 @@
                         <h2>Upcoming Events</h2>
                     </div>
                 </div>
-                <div class="col-lg-12 col-md-6">
-                    <div class="item">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="image">
-                                    <img src="assets/images/event-01.jpg" alt="">
+
+                @forelse ($upcomingBatches as $item)
+                    {{-- @dd($item->course->image); --}}
+                    <div class="col-lg-12 col-md-6">
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="image">
+                                        <img src="{{ $item->course->image ? url('storage/' . $item->course->image) : asset('frontend/assets/images/profile_blank.png') }}"
+                                            alt="">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-9">
-                                <ul>
-                                    <li>
-                                        <span class="category">Project Management</span>
-                                        <h4>Project Management Professional (PMP)</h4>
-                                    </li>
-                                    <li>
-                                        <span>Date:</span>
-                                        <h6>05 July 2025</h6>
-                                    </li>
-                                    <li>
-                                        <span>Duration:</span>
-                                        <h6>40 Hours</h6>
-                                    </li>
-                                    <li>
-                                        <span>Price:</span>
-                                        <h6>Tk</h6>
-                                    </li>
-                                </ul>
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                                <div class="col-lg-9">
+                                    <ul>
+                                        <li>
+                                            <span class="category">{{ $item->course->category->title ?? '—' }}</span>
+                                            <h4>{{ $item->course->name ?? $item->title }}</h4>
+                                        </li>
+                                        <li>
+                                            <span>Date:</span>
+                                            <h6>{{ \Carbon\Carbon::parse($item->start_date)->format('d F Y') }}
+                                            </h6>
+                                        </li>
+                                        <li>
+                                            <span>Duration:</span>
+                                            <h6>{{ $item->duration ?? '—' }}</h6>
+                                        </li>
+                                        <li>
+                                            <span>Price:</span>
+                                            <h6>৳{{ number_format($item->discounted_price ?? $item->price, 2) }}
+                                            </h6>
+                                        </li>
+                                    </ul>
+                                    <a href="#"><i class="fa fa-angle-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12 col-md-6">
-                    <div class="item">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="image">
-                                    <img src="assets/images/event-02.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
-                                <ul>
-                                    <li>
-                                        <span class="category">Agile Development</span>
-                                        <h4>Certified Scrum Master (CSM)</h4>
-                                    </li>
-                                    <li>
-                                        <span>Date:</span>
-                                        <h6>18 July 2025</h6>
-                                    </li>
-                                    <li>
-                                        <span>Duration:</span>
-                                        <h6>18 Hours</h6>
-                                    </li>
-                                    <li>
-                                        <span>Price:</span>
-                                        <h6>Tk</h6>
-                                    </li>
-                                </ul>
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
+                @empty
+                    <div class="col-12 text-center text-muted">
+                        <p>No upcoming batches found at the moment.</p>
                     </div>
-                </div>
-                <div class="col-lg-12 col-md-6">
-                    <div class="item">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="image">
-                                    <img src="assets/images/event-03.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
-                                <ul>
-                                    <li>
-                                        <span class="category">Quality Management</span>
-                                        <h4>Lean Six Sigma Black Belt (LSSBB)</h4>
-                                    </li>
-                                    <li>
-                                        <span>Date:</span>
-                                        <h6>31 Jul 2025</h6>
-                                    </li>
-                                    <li>
-                                        <span>Duration:</span>
-                                        <h6>32 Hours</h6>
-                                    </li>
-                                    <li>
-                                        <span>Price:</span>
-                                        <h6>Tk</h6>
-                                    </li>
-                                </ul>
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
+
+
             </div>
         </div>
     </div>
@@ -627,7 +597,8 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <fieldset>
-                                        <button type="submit" id="form-submit" class="orange-button">Send Message
+                                        <button type="submit" id="form-submit" class="orange-button">Send
+                                            Message
                                             Now</button>
                                     </fieldset>
                                 </div>

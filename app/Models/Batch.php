@@ -11,9 +11,19 @@ class Batch extends Model
     use HasFactory;
 
     protected $fillable = [
-        'course_id', 'title', 'start_date', 'end_date',
-        'start_time', 'end_time', 'timezone', 'location',
-        'price', 'discounted_price', 'slug','user_id','status' // ← Add slug here
+        'course_id',
+        'title',
+        'start_date',
+        'end_date',
+        'start_time',
+        'end_time',
+        'timezone',
+        'location',
+        'price',
+        'discounted_price',
+        'slug',
+        'user_id',
+        'status'
     ];
 
     public function course()
@@ -41,5 +51,11 @@ class Batch extends Model
                 $batch->slug = $slug;
             }
         });
+    }
+
+
+    public function scopeUpcoming($query)
+    {
+        return $query->whereDate('start_date', '>=', now())->orderBy('start_date');
     }
 }

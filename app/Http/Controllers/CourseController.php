@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Course;
-use App\Models\Trainer;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -28,20 +28,8 @@ class CourseController extends Controller
         return view('admin.courses.create', $data);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
-        ]);
-        $course = new Course();
-        $fillableData = $request->only($course->getFillable());
-        $fillableData['slug'] = $this->slugGenerate();
-        $course->create($fillableData);
-        return redirect()->route('dashboard.courses.index')->with('success', 'Course created successfully.');
-    }
+
+
 
     public function show(Course $course)
     {
@@ -52,25 +40,81 @@ class CourseController extends Controller
     {
         $data['course'] = $course;
         $data['pageTitle'] = "Edit course";
-        $data['categories'] = Category::pluck('title', 'id');
+        $data['categories'] = Category::whereNull('parent_id')->get();
         $data['trainers'] = User::where('type', 'trainer')->pluck('name', 'id');
         $data['buttonText'] = "Update";
         return view('admin.courses.edit', $data);
     }
 
+
+
+    public function store(Request $request)
+    {
+        $validated = $this->validateCourse($request);
+
+        $validated['slug'] = $this->slugGenerate();
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $this->uploadImage($request);
+        }
+
+        Course::create($validated);
+
+        return redirect()->route('dashboard.courses.index')->with('success', 'Course created successfully.');
+    }
+
     public function update(Request $request, Course $course)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'details' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
-        ]);
-        $fillableData = $request->only($course->getFillable());
-        $fillableData['slug'] = $this->slugGenerate($course->id);
-        $course->update($fillableData);
+        $validated = $this->validateCourse($request, $course->id);
+
+        $validated['slug'] = $this->slugGenerate($course->id);
+
+        if ($request->hasFile('image')) {
+            $this->deleteImage($course->image);
+            $validated['image'] = $this->uploadImage($request);
+        }
+
+        $course->update($validated);
+
         return redirect()->route('dashboard.courses.index')->with('success', 'Course updated successfully.');
     }
+
+    /**
+     * Validate course request data.
+     */
+    protected function validateCourse(Request $request, $courseId = null): array
+    {
+        return $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'short_description' => 'nullable|string',
+            'sub_title' => 'nullable|string',
+            'price' => 'required|numeric',
+            'special_price' => 'nullable|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'user_id' => 'required|exists:users,id',
+            'image' => $courseId ? 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    }
+
+    /**
+     * Handle image upload.
+     */
+    protected function uploadImage(Request $request): string
+    {
+        return $request->file('image')->store('courses', 'public');
+    }
+
+    /**
+     * Delete existing image if it exists.
+     */
+    protected function deleteImage(?string $imagePath): void
+    {
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
+    }
+
 
     public function destroy(Course $course)
     {
@@ -79,13 +123,14 @@ class CourseController extends Controller
     }
 
 
-    private function slugGenerate($id = null){
+    private function slugGenerate($id = null)
+    {
         $slug = Str::slug(request()->name);
-        $counts = Course::where('slug',$slug)->when($id,function($q) use($id) {
-            $q->where('id','<>', $id);
+        $counts = Course::where('slug', $slug)->when($id, function ($q) use ($id) {
+            $q->where('id', '<>', $id);
         })->count();
-        if(!empty($counts)){
-            $slug += "-".$counts;
+        if (!empty($counts)) {
+            $slug += "-" . $counts;
         }
         return $slug;
     }

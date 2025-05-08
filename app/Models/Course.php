@@ -19,6 +19,7 @@ class Course extends Model
         'short_description',
         'description',
         'price',
+        'image',
         'special_price',
     ];
 

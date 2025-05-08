@@ -4,21 +4,32 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\User;
+use App\Models\Batch;
 use App\Models\Category;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\RegistrationMessage;
 
 class SiteController extends Controller
 {
-    public function welcome(){
+    public function welcome()
+    {
         $data['testimonials'] = Testimonial::get();
         $data['trainers'] = User::with(['category'])->where('type', 'trainer')->get();
 
-         $data['categories'] = Category::with(['children', 'courses' => function ($query) {
+        $data['categories'] = Category::with(['children', 'courses' => function ($query) {
             $query->where('status', 1);
-        }])->whereNull('parent_id')->get();
+        }])
+            ->whereNull('parent_id')
+            ->whereHas('courses', function ($query) {
+                $query->where('status', 1);
+            })
+            ->get();
+
+        $data['upcomingBatches'] = Batch::upcoming()->get();
+
         return view('welcome', $data);
     }
     public function registrationMessage(Request $request)
