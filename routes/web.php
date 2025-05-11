@@ -5,10 +5,11 @@ use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\BatchController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CourseController;
 use App\Http\Controllers\TestimonialController;
 
 // Route::get('/', function () {
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     ->name('dashboard.')
     ->group(function () {
         Route::resource('categories', CategoryController::class);
+        Route::resource('slider', SliderController::class);
         Route::resource('courses', CourseController::class);
         Route::resource('trainers', TrainerController::class);
         Route::resource('testimonials', TestimonialController::class);

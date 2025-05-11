@@ -125,9 +125,9 @@
                                     <div class="main-button">
                                         <a href="{{ $slider->main_button_link }}">{{ $slider->main_button }}</a>
                                     </div>
-                                    <div class="icon-button">
+                                    {{-- <div class="icon-button">
                                         <a href="#"><i class="fa fa-play"></i> What's the best result?</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

@@ -63,6 +63,14 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('dashboard.slider.index') }}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Slider</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('dashboard.categories.index') }}">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Categories</span>
