@@ -9,11 +9,11 @@ class Slider extends Model
 
     protected $fillable = [
         'title',
-        'top_button',
+        'top_button_text',
         'description',
         'image',
-        'big_button',
-        'main_button',
+        // 'big_button',
+        'main_button_text',
         'main_button_link',
         'status',
     ];

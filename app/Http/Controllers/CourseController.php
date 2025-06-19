@@ -21,9 +21,9 @@ class CourseController extends Controller
     public function create()
     {
         $data['pageTitle'] = "Create Course";
-        $data['categories'] = Category::pluck('title', 'id');
+        // $data['categories'] = Category::pluck('title', 'id');
         $data['trainers'] = User::where('type', 'trainer')->pluck('name', 'id');
-        $data['categories'] = Category::whereNotNull('parent_id')->get();
+        $data['categories'] = Category::whereNull('parent_id')->get();
         $data['buttonText'] = "Save";
         return view('admin.courses.create', $data);
     }

@@ -33,8 +33,8 @@
                                 <tr>
                                     <td>{{ $items->firstItem() + $index }}</td>
                                     <td>{{ $slider->title }}</td>
-                                    <td>{{ $slider->top_button ?? '—' }}</td>
-                                    <td>{{ $slider->main_button ?? '—' }}</td>
+                                    <td>{{ $slider->top_button_text ?? '—' }}</td>
+                                    <td>{{ $slider->main_button_text ?? '—' }}</td>
                                     <td>
                                         @if($slider->main_button_link)
                                             <a href="{{ $slider->main_button_link }}" target="_blank">Link</a>

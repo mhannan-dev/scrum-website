@@ -12,7 +12,7 @@
 
     <div class="mb-3 col-md-4">
         <label for="top_button" class="form-label">Top Button Text</label>
-        <input type="text" class="form-control" name="top_button" id="top_button"
+        <input type="text" class="form-control" name="top_button_text" id="top_button"
             value="{{ old('top_button', $slider->top_button ?? '') }}">
     </div>
 
@@ -20,7 +20,7 @@
 
     <div class="mb-3 col-md-4">
         <label for="main_button" class="form-label">Main Button Text</label>
-        <input type="text" class="form-control" name="main_button" id="main_button"
+        <input type="text" class="form-control" name="main_button_text" id="main_button"
             value="{{ old('main_button', $slider->main_button ?? '') }}">
     </div>
 

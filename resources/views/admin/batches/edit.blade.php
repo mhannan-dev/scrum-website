@@ -44,6 +44,18 @@
                 <input type="text" class="form-control" name="title" id="title"
                     value="{{ old('title', $batch->title) }}" required>
             </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="duration" class="form-label">Duration</label>
+                        <input type="text" class="form-control" name="duration" id="duration" value="{{ old('duration', $batch->duration) }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="duration" class="form-label">Schedule</label>
+                        <input type="text" class="form-control" name="schedule" id="schedule" value="{{ old('schedule', $batch->schedule) }}">
+                    </div>
+                </div>
+            </div>
 
             <div class="mb-3 col-md-6">
                 <label for="start_date" class="form-label">Start Date</label>

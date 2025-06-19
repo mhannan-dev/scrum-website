@@ -56,18 +56,28 @@
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" required>
             </div>
 
-
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="duration" class="form-label">Duration</label>
+                    <input type="text" class="form-control" name="duration" id="duration" value="{{ old('duration') }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="duration" class="form-label">Schedule</label>
+                    <input type="text" class="form-control" name="schedule" id="schedule" value="{{ old('schedule') }}">
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="start_date" class="form-label">Start Date</label>
+                    <label for="start_date" class="form-label">Start Date <span class="text-danger">*</span></label>
                     <input type="date" class="form-control" name="start_date" id="start_date" value="{{ old('start_date') }}">
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="end_date" class="form-label">End Date</label>
+                    <label for="end_date" class="form-label">End Date <span class="text-danger">*</span></label>
                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ old('end_date') }}">
                 </div>
             </div>
+
 
             <div class="row">
                 <div class="col-md-6 mb-3">

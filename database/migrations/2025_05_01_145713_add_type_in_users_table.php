@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             // Add 'type' column with default value 'user'
             $table->string('type')->nullable()->after('id')->nullable();
+            $table->string('position')->nullable()->nullable();
 
             // Add 'can_login' column
             $table->tinyInteger('can_login')->nullable()->after('type');

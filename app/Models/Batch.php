@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,11 +21,58 @@ class Batch extends Model
         'timezone',
         'location',
         'price',
+        'duration',
+        'schedule',
         'discounted_price',
         'slug',
         'user_id',
         'status'
     ];
+
+    // protected $appends = ['duration'];
+
+    // public function getDurationAttribute()
+    // {
+    //     // Ensure Carbon instances
+    //     $startDate = \Carbon\Carbon::parse($this->start_date);
+    //     $endDate = \Carbon\Carbon::parse($this->end_date);
+
+    //     // If both times exist, combine them with dates
+    //     if ($this->start_time && $this->end_time) {
+    //         $start = \Carbon\Carbon::parse($this->start_date . ' ' . $this->start_time);
+    //         $end = \Carbon\Carbon::parse($this->end_date . ' ' . $this->end_time);
+    //     } 
+    //     // Only start_time is present
+    //     elseif ($this->start_time && !$this->end_time) {
+    //         $start = \Carbon\Carbon::parse($this->start_date . ' ' . $this->start_time);
+    //         $end = $endDate->endOfDay();
+    //     } 
+    //     // Only end_time is present
+    //     elseif (!$this->start_time && $this->end_time) {
+    //         $start = $startDate->startOfDay();
+    //         $end = \Carbon\Carbon::parse($this->end_date . ' ' . $this->end_time);
+    //     } 
+    //     // No times provided, use full dates
+    //     else {
+    //         $start = $startDate->startOfDay();
+    //         $end = $endDate->endOfDay();
+    //     }
+
+    //     // Handle cases where end is before start
+    //     if ($end < $start) {
+    //         return 'Invalid duration';
+    //     }
+
+    //     // Get diff in days, hours, minutes
+    //     $diff = $start->diff($end);
+
+    //     // Format into readable string
+    //     return trim(sprintf('%d days %d hours %d minutes',
+    //         $diff->d + ($diff->m * 30) + ($diff->y * 365),
+    //         $diff->h,
+    //         $diff->i
+    //     ));
+    // }
 
     public function course()
     {

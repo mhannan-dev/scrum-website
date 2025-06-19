@@ -6,6 +6,7 @@ use Exception;
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\Category;
+use App\Models\Course;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,17 +20,18 @@ class SiteController extends Controller
         $data['testimonials'] = Testimonial::get();
         $data['trainers'] = User::with(['category'])->where('type', 'trainer')->get();
         $data['sliders'] = Slider::active()->inRandomOrder()->take(3)->get();
+        $data['courses'] = Course::where('status',1)->with(['category','trainer'])->get();
 
         $data['categories'] = Category::with(['children', 'courses' => function ($query) {
             $query->where('status', 1);
         }])
             ->whereNull('parent_id')
-            ->whereHas('courses', function ($query) {
-                $query->where('status', 1);
-            })
+            // ->whereHas('courses', function ($query) {
+            //     $query->where('status', 1);
+            // })
             ->get();
 
-        $data['upcomingBatches'] = Batch::upcoming()->get();
+        $data['upcomingBatches'] = Batch::where('status',1)->get();
 
         return view('welcome', $data);
     }

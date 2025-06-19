@@ -42,7 +42,7 @@
                     required>
             </div>
             <div class="mb-3">
-                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                <label for="name" class="form-label">Email <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}"
                     required>
             </div>

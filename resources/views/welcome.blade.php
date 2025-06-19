@@ -76,17 +76,18 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="" class="logo">
-                            <h1>Global Experts</h1>
-
+                            <!-- <h1>Global Experts</h1> -->
+                            <img src="{{ asset('frontend/assets/images/logo.png') }}" style="width:90px" alt="">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Serach Start ***** -->
-                        <div class="search-input">
-                            <form id="search" action="#">
+                        <div class="search-input" style="width:100%; margin-top:25px;margin-left:10px;">
+                        <h3 style="color: #fff;">Global Experts Ltd.</h3>
+                            <!-- <form id="search" action="#">
                                 <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword"
                                     onkeypress="handle" />
                                 <i class="fa fa-search"></i>
-                            </form>
+                            </form> -->
                         </div>
                         <!-- ***** Serach Start ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -95,7 +96,7 @@
                             <!--  <li class="scroll-to-section"><a href="#services">Services</a></li> -->
                             <li class="scroll-to-section"><a href="#courses">Courses</a></li>
                             <li class="scroll-to-section"><a href="#team">Team</a></li>
-                            <li class="scroll-to-section"><a href="#events">Events</a></li>
+                            <li class="scroll-to-section"><a href="#events">Batch</a></li>
                             <li class="scroll-to-section"><a href="#contact">Register Now!</a></li>
                         </ul>
                         <a class='menu-trigger'>
@@ -116,19 +117,21 @@
                     <div class="owl-carousel owl-banner">
 
                         @foreach ($sliders as $slider)
-                        <div class="item item-2">
+                        <div class="item" style="background-image:  url({{ $slider->image ? asset('storage/' . $slider->image) : asset('frontend/assets/images/banner-item-02.jpg') }})">
                             <div class="header-text">
-                                <span class="category">{{ $slider->top_button }}</span>
+                                @if($slider->top_button_text)
+                                <span class="category">{{ $slider->top_button_text }}</span>
+                                @endif
                                 <h2>{{ $slider->title }}</h2>
-                                <p>{{ $slider->description }}</p>
+                                <p style="margin: 0 auto;">{!! $slider->description !!}</p>
+                                @if($slider->main_button_text)
                                 <div class="buttons">
                                     <div class="main-button">
-                                        <a href="{{ $slider->main_button_link }}">{{ $slider->main_button }}</a>
+                                        <a href="{{ $slider->main_button_link }}">{{ $slider->main_button_text }}</a>
                                     </div>
-                                    {{-- <div class="icon-button">
-                                        <a href="#"><i class="fa fa-play"></i> What's the best result?</a>
-                                    </div> --}}
+                            
                                 </div>
+                                @endif
                             </div>
                         </div>
 
@@ -136,6 +139,63 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section events" id="events">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-heading">
+                        <h6>Enroll Now</h6>
+                        <h2>Upcoming Certification Trainings</h2>
+                    </div>
+                </div>
+
+                @forelse ($upcomingBatches as $item)
+                    <div class="col-lg-12 col-md-6">
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="image">
+                                        <img src="{{ $item->course->image ? url('storage/' . $item->course->image) : asset('frontend/assets/images/profile_blank.png') }}"
+                                            alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <ul>
+                                        <li>
+                                            <span class="category">{{ $item->course->category->title ?? '—' }}</span>
+                                            <h4>{{ $item->title }}</h4>
+                                        </li>
+                                        <li>
+                                            <span>Start Date:</span>
+                                            <h6>{{ \Carbon\Carbon::parse($item->start_date)->format('d F Y') }}
+                                            </h6>
+                                        </li>
+                                        <li>
+                                            <span>Duration:</span>
+                                            <h6>{{ $item->duration ?? '—' }}</h6>
+                                        </li>
+                                        <li>
+                                            <span>Price:</span>
+                                            <h6>৳{{ number_format($item->discounted_price > 0?  $item->discounted_price : $item->price, 2) }}
+                                            </h6>
+                                        </li>
+                                    </ul>
+                                    <a href="#"><i class="fa fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center text-muted">
+                        <p>No upcoming batches found at the moment.</p>
+                    </div>
+                @endforelse
+
+
             </div>
         </div>
     </div>
@@ -191,117 +251,7 @@
 
 
     <div class="section about-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-1">
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Where shall we begin?
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show"
-                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, we believe that every successful
-                                    learning
-                                    journey starts with the right foundation. Whether you’re looking to enhance
-                                    your
-                                    skills, earn a professional certification, or advance in your career, we are
-                                    here to
-                                    guide you every step of the way.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    How do we work together?
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, collaboration is at the heart of
-                                    everything
-                                    we do. Our goal is to provide a seamless and engaging learning experience
-                                    that
-                                    empowers you to achieve professional success
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false"
-                                    aria-controls="collapseThree">
-                                    Why Global Experts is the best?
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse"
-                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, we are committed to delivering
-                                    top-quality
-                                    professional training that helps individuals and organizations achieve
-                                    success.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFour" aria-expanded="false"
-                                    aria-controls="collapseFour">
-                                    Do we get the best support?
-                                </button>
-                            </h2>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                                data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    At <strong>Global Experts Ltd.</strong>, your success is our priority. We go
-                                    beyond
-                                    just training – we ensure you have unmatched support throughout your
-                                    learning
-                                    journey.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 align-self-center">
-                    <div class="section-heading">
-                        <h6>About Us</h6>
-                        <h2>What make us the best training provider?</h2>
-                        <p>At <strong>Global Experts Ltd.</strong>, we are passionate about empowering
-                            professionals
-                            with the skills and certifications needed to excel in today’s competitive world.</p>
-
-                        <P>Our expert-led, interactive training sessions focus on real-world applications,
-                            hands-on
-                            exercises, and industry best practices to ensure you gain valuable knowledge that
-                            can be
-                            applied immediately. Whether you're an individual looking to advance your career or
-                            an
-                            organization aiming to upskill your team, we provide tailored training solutions to
-                            meet
-                            your needs. </P>
-
-                        <p>With a commitment to quality, excellence, and ongoing support, Global Experts Ltd. is
-                            your
-                            trusted partner in professional development. Join us today and take the next step
-                            toward
-                            success! </p>
-                        <div class="main-button">
-                            <!-- <a href="#">Discover More</a> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include("partials.about_us")
     </div>
 
     <section class="section courses" id="courses">
@@ -315,7 +265,7 @@
                 </div>
             </div>
 
-            {{-- Category Filters --}}
+        
             <ul class="event_filter">
                 <li><a class="is_active" href="#!" data-filter="*">Show All</a></li>
                 @foreach ($categories as $category)
@@ -327,206 +277,47 @@
                 @endforeach
             </ul>
 
-            {{-- Courses Grid --}}
             <div class="row event_box">
-                @foreach ($categories as $category)
-                    @foreach ($category->courses as $course)
-                        <div
-                            class="col-lg-4 col-md-6 align-self-center mb-30 event_outer {{ Str::slug($category->title) }}">
-                            <div class="events_item">
-                                <div class="thumb">
-                                    <a href="#">
-                                        <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}">
+                @foreach ($courses as $course)
+                    <div
+                        class="col-lg-4 col-md-6 align-self-center mb-30 event_outer {{ Str::slug($course->category->title) }}">
+                        <div class="events_item">
+                            <div class="thumb">
+                                <a href="#">
+                                    <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}">
 
-                                    </a>
-                                    <span class="category">{{ $category->title }}</span>
-                                    <span class="price">
-                                        <h6><em>Tk</em>{{ $course->price ?? '--' }}</h6>
-                                    </span>
-                                </div>
-                                <div class="down-content">
-                                    <span class="author">{{ $course->trainer->name ?? 'Unknown' }}</span>
-                                    <h4>{{ $course->name }}</h4>
-                                </div>
+                                </a>
+                                <span class="category">{{ $course->category->title }}</span>
+                                <!-- <span class="price">
+                                    <h6><em>Tk</em>{{ $course->price ?? '--' }}</h6>
+                                </span> -->
+                            </div>
+                            <div class="down-content">
+                                <span class="author">{{ $course->trainer->name ?? 'Unknown' }}</span>
+                                <h4>{{ $course->name }}</h4>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-
-
-
     <div class="section fun-facts">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="wrapper">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6">
-                                <div class="counter">
-                                    <h2 class="timer count-title count-number" data-to="150" data-speed="1000"></h2>
-                                    <p class="count-text ">Happy Students</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="counter">
-                                    <h2 class="timer count-title count-number" data-to="804" data-speed="1000"></h2>
-                                    <p class="count-text ">Course Hours</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="counter">
-                                    <h2 class="timer count-title count-number" data-to="50" data-speed="1000"></h2>
-                                    <p class="count-text ">Employed Students</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="counter end">
-                                    <h2 class="timer count-title count-number" data-to="15" data-speed="1000"></h2>
-                                    <p class="count-text ">Years Experience</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include("partials.happy_section")
     </div>
     @if (!empty($trainers))
         <div class="team section" id="team">
-            <div class="container">
-                <div class="row">
-                    @foreach ($trainers as $trainer)
-                        <div class="col-lg-3 col-md-6">
-                            <div class="team-member">
-                                <div class="main-content">
-                                    <img src="{{ $trainer->image ? url('storage/' . $trainer->image) : asset('frontend/assets/images/profile_blank.png') }}"
-                                        alt="{{ $trainer->name }}"
-                                        style="width: 100%; height: auto; object-fit: cover;">
-
-                                    <span class="category">{{ $trainer->category->title ?? 'No Category' }}</span>
-                                    <h4>{{ $trainer->name ?? '' }}</h4>
-
-                                    @php
-                                        $links = is_array($trainer->social_links)
-                                            ? $trainer->social_links
-                                            : json_decode($trainer->social_links, true);
-                                    @endphp
-
-                                    @if (!empty($links))
-                                        <ul class="social-icons">
-                                            @foreach ($links as $platform => $url)
-                                                <li>
-                                                    <a href="{{ $url }}" target="_blank">
-                                                        <i class="fab fa-{{ strtolower($platform) }}"></i>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+            @include("partials.trainers_section")
         </div>
     @endif
 
     @if (!empty($testimonials))
         <div class="section testimonials">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <div class="owl-carousel owl-testimonials">
-
-                            @foreach ($testimonials as $item)
-                                <div class="item">
-                                    <p>{{ $item->comment }}</p>
-                                    <div class="author">
-                                        <img src="{{ asset('frontend/assets/images/testimonial-author.jpg') }}"
-                                            alt="">
-                                        <span class="category">{{ $item->designation ?? '' }}</span>
-                                        <h4>{{ $item->user->name ?? '' }}</h4>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="col-lg-5 align-self-center">
-                        <div class="section-heading">
-                            <h6>TESTIMONIALS</h6>
-                            <h2>What they say about us?</h2>
-                            <p>At <strong>Global Experts Ltd.</strong>, our success is measured by the
-                                achievements of
-                                our
-                                trainees. Here’s what professionals who have trained with us have to say.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        @include("partials.testimonials")
         </div>
     @endif
-    <div class="section events" id="events">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="section-heading">
-                        <h6>Schedule</h6>
-                        <h2>Upcoming Events</h2>
-                    </div>
-                </div>
-
-                @forelse ($upcomingBatches as $item)
-                    {{-- @dd($item->course->image); --}}
-                    <div class="col-lg-12 col-md-6">
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="image">
-                                        <img src="{{ $item->course->image ? url('storage/' . $item->course->image) : asset('frontend/assets/images/profile_blank.png') }}"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <ul>
-                                        <li>
-                                            <span class="category">{{ $item->course->category->title ?? '—' }}</span>
-                                            <h4>{{ $item->course->name ?? $item->title }}</h4>
-                                        </li>
-                                        <li>
-                                            <span>Date:</span>
-                                            <h6>{{ \Carbon\Carbon::parse($item->start_date)->format('d F Y') }}
-                                            </h6>
-                                        </li>
-                                        <li>
-                                            <span>Duration:</span>
-                                            <h6>{{ $item->duration ?? '—' }}</h6>
-                                        </li>
-                                        <li>
-                                            <span>Price:</span>
-                                            <h6>৳{{ number_format($item->discounted_price ?? $item->price, 2) }}
-                                            </h6>
-                                        </li>
-                                    </ul>
-                                    <a href="#"><i class="fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="col-12 text-center text-muted">
-                        <p>No upcoming batches found at the moment.</p>
-                    </div>
-                @endforelse
-
-
-            </div>
-        </div>
-    </div>
+    
 
     <div class="contact-us section" id="contact">
         <div class="container">

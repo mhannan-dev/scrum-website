@@ -71,9 +71,9 @@ class SliderController extends Controller
     {
         return $request->validate([
             'title' => 'required|string|max:255',
-            'top_button' => 'nullable|string|max:255',
-            'big_button' => 'nullable|string|max:255',
-            'main_button' => 'nullable|string|max:255',
+            'top_button_text' => 'nullable|string|max:255',
+            // 'big_button' => 'nullable|string|max:255',
+            'main_button_text' => 'nullable|string|max:255',
             'main_button_link' => 'nullable|url|max:255',
             'description' => 'nullable|string',
             'status' => 'required|in:0,1',
