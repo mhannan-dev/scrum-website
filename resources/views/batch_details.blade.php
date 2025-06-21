@@ -60,11 +60,6 @@
         }
         /* --- End Custom Color Overrides --- */
 
-
-        .test {
-            color: red;
-        }
-
         .accordion-button:not(.collapsed) {
             background-color: rgba(108, 99, 255, 0.1);
             color: #6c63ff;
@@ -108,17 +103,18 @@
             background: transparent;
             display: flex;
             align-items: center; /* Vertically centers items in the nav */
-            justify-content: space-between; /* Distributes space between logo, search-input, and nav links */
+            justify-content: space-between; /* Distributes space between logo, company-brand-name, and nav links */
         }
 
-        .header-area .main-nav .search-input {
+        /* Updated class name for clarity */
+        .header-area .main-nav .company-brand-name {
             display: flex; /* Enable flexbox for inner alignment */
             align-items: center; /* Vertically center the h3 inside */
             width: 100%;
             margin-left: 10px;
         }
 
-        .header-area .main-nav .search-input h3 {
+        .header-area .main-nav .company-brand-name h3 {
             margin-bottom: 0; /* Remove default bottom margin from h3 */
         }
     </style>
@@ -129,11 +125,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <nav class="main-nav">
+                    <nav class="main-nav py-4">
                         <a href="http://localhost:8001" class="logo">
                             <img src="http://localhost:8001/frontend/assets/images/logo.png" style="width:90px" alt="">
                         </a>
-                        <div class="search-input">
+                        {{-- Changed class name from search-input to company-brand-name for better semantics --}}
+                        <div class="company-brand-name">
                             <h3 style="color: #fff;">Global Experts Ltd.</h3>
                         </div>
                         <ul class="nav">
@@ -163,23 +160,20 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="mb-4">
-                    <h1 class="fw-bold mb-3">Full Stack Web Development - Batch #25</h1>
+                    <h1 class="fw-bold mb-3">{{ $batch->title ?? "" }}</h1>
                     <div class="d-flex align-items-center mb-3">
                         {{-- This badge will now use #7a6ad8 due to .bg-primary override --}}
-                        <span class="badge bg-primary me-3">Web Development</span>
+                        <span class="badge bg-primary me-3">{{ $batch->course->name ?? 'N/A' }}</span>
                         {{-- This text will now use #7a6ad8 due to .text-primary override --}}
-                        <span><i class="fas fa-chalkboard-teacher text-primary me-2"></i>Instructor: John Smith</span>
+                        <span><i class="fas fa-chalkboard-teacher text-primary me-2"></i>Instructor: {{ $batch->trainer->name ?? "N/A" }}</span>
                     </div>
                 </div>
 
+                {{-- Uncommented and added dynamic content for About This Batch --}}
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
                         <h3 class="card-title mb-3">About This Batch</h3>
-                        <p>This intensive Full Stack Web Development batch will take you from beginner to professional
-                            level. You'll learn HTML, CSS, JavaScript, React, Node.js, Express, and MongoDB to build
-                            complete web applications.</p>
-                        <p>By the end of this batch, you'll have a portfolio of projects and the skills needed to work as a
-                            full-stack developer.</p>
+                        <p>{{ $batch->description ?? 'No description available for this batch. This intensive batch will provide comprehensive training in relevant skills and technologies.' }}</p>
                     </div>
                 </div>
 
@@ -189,39 +183,39 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
-                                    {{-- These icons will now use #7a6ad8 due to .text-primary override --}}
                                     <i class="far fa-calendar-alt text-primary me-2"></i>
-                                    <strong>Start Date:</strong> July 15, 2025
+                                <strong>Start Date:</strong> {{ \Carbon\Carbon::parse($batch->start_date)->format('F j, Y') ?? 'N/A' }}
+
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="far fa-calendar-alt text-primary me-2"></i>
-                                    <strong>End Date:</strong> October 7, 2025
+                                    <strong>End Date:</strong> {{ \Carbon\Carbon::parse($batch->end_date)->format('F j, Y') ?? 'N/A' }}
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="far fa-clock text-primary me-2"></i>
-                                    <strong>Class Time:</strong> 7:00 PM - 9:00 PM
+                                    <strong>Class Time:</strong> {{ $batch->start_time ?? 'N/A' }} - {{ $batch->end_time ?? 'N/A' }}
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="fas fa-calendar-week text-primary me-2"></i>
-                                    <strong>Schedule:</strong> Mon & Wed
+                                    <strong>Schedule:</strong> {{ $batch->schedule ?? 'N/A' }}
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="fas fa-clock text-primary me-2"></i>
-                                    <strong>Duration:</strong> 12 Weeks
+                                    <strong>Duration:</strong> {{ $batch->duration ?? 'N/A' }}
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="fas fa-globe text-primary me-2"></i>
-                                    <strong>Timezone:</strong> GMT+6
+                                    <strong>Timezone:</strong> {{ $batch->timezone ?? 'Asia/Dhaka' }}
                                 </div>
                             </div>
                         </div>
@@ -233,19 +227,23 @@
                 <div class="card shadow-sm sticky-top" style="top: 120px;">
                     <div class="card-body">
                         <div class="text-center mb-4">
-                            <img src="https://via.placeholder.com/300x200" alt="Course Image"
+                            {{-- Dynamic course image --}}
+                            <img src="{{ $batch->course->image_url ?? 'https://via.placeholder.com/300x200?text=Course+Image' }}" alt="Course Image"
                                 class="img-fluid rounded mb-3">
 
                             <div class="d-flex justify-content-center align-items-center mb-3">
-                                <h3 class="text-danger mb-0 me-3">৳15,000</h3>
-                                <del class="text-muted">৳18,000</del>
+                                {{-- Dynamic pricing --}}
+                                <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->price ?? 0, 0) }}</h3>
+                                @if($batch->original_price && $batch->original_price > $batch->price)
+                                    <del class="text-muted">৳{{ number_format($batch->original_price, 0) }}</del>
+                                @endif
                             </div>
 
                             {{-- This button will now use #7a6ad8 due to .btn-primary override --}}
                             <a href="#" class="btn btn-primary w-100 mb-2">
                                 <i class="fas fa-user-plus me-2"></i> Enroll Now
                             </a>
-                           
+
                         </div>
 
                         <hr>
@@ -256,19 +254,19 @@
                                 {{-- These icons will now use #7a6ad8 due to .text-primary override --}}
                                 <li class="mb-2">
                                     <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                                    <strong>Location:</strong> Online (Zoom)
+                                    <strong>Location:</strong> {{ $batch->location ?? 'Online (Zoom)' }}
                                 </li>
                                 <li class="mb-2">
                                     <i class="fas fa-users text-primary me-2"></i>
-                                    <strong>Seats Available:</strong> 12/25
+                                    <strong>Seats Available:</strong> {{ $batch->enrolled_students ?? 0 }}/{{ $batch->max_students ?? 'N/A' }}
                                 </li>
                                 <li class="mb-2">
                                     <i class="fas fa-language text-primary me-2"></i>
-                                    <strong>Language:</strong> English
+                                    <strong>Language:</strong> {{ $batch->language ?? 'English' }}
                                 </li>
                                 <li class="mb-2">
                                     <i class="fas fa-certificate text-primary me-2"></i>
-                                    <strong>Certificate:</strong> Yes
+                                    <strong>Certificate:</strong> {{ $batch->certificate_included ? 'Yes' : 'No' }}
                                 </li>
                             </ul>
                         </div>
@@ -278,17 +276,19 @@
                         <div class="instructor-info">
                             <h5 class="fw-bold mb-3">Instructor</h5>
                             <div class="d-flex align-items-start">
-                                <img src="https://via.placeholder.com/80" alt="Instructor" class="rounded-circle me-3"
+                                {{-- Dynamic instructor image --}}
+                                <img src="{{ $batch->trainer->image_url ?? 'https://via.placeholder.com/80?text=Trainer' }}" alt="Instructor" class="rounded-circle me-3"
                                     width="80">
                                 <div>
-                                    <h6 class="mb-1">John Smith</h6>
-                                    <p class="text-muted small mb-2">Senior Web Developer</p>
+                                    <h6 class="mb-1">{{ $batch->trainer->name ?? 'N/A' }}</h6>
+                                    <p class="text-muted small mb-2">{{ $batch->trainer->title ?? 'Instructor' }}</p>
                                     <div class="d-flex">
                                         <span class="badge bg-light text-dark me-2 small">
-                                            <i class="fas fa-star text-warning"></i> 4.9
+                                            <i class="fas fa-star text-warning"></i> {{ number_format($batch->trainer->rating ?? 0, 1) }}
                                         </span>
-                                        <span class="badge bg-light text-dark small test">
-                                            <i class="fas fa-users"></i> 1,200+ students
+                                        {{-- Removed temporary .test class --}}
+                                        <span class="badge bg-light text-dark small">
+                                            <i class="fas fa-users"></i> {{ number_format($batch->trainer->total_students ?? 0, 0) }}+ students
                                         </span>
                                     </div>
                                 </div>

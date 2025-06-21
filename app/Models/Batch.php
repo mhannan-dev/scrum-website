@@ -41,17 +41,17 @@ class Batch extends Model
     //     if ($this->start_time && $this->end_time) {
     //         $start = \Carbon\Carbon::parse($this->start_date . ' ' . $this->start_time);
     //         $end = \Carbon\Carbon::parse($this->end_date . ' ' . $this->end_time);
-    //     } 
+    //     }
     //     // Only start_time is present
     //     elseif ($this->start_time && !$this->end_time) {
     //         $start = \Carbon\Carbon::parse($this->start_date . ' ' . $this->start_time);
     //         $end = $endDate->endOfDay();
-    //     } 
+    //     }
     //     // Only end_time is present
     //     elseif (!$this->start_time && $this->end_time) {
     //         $start = $startDate->startOfDay();
     //         $end = \Carbon\Carbon::parse($this->end_date . ' ' . $this->end_time);
-    //     } 
+    //     }
     //     // No times provided, use full dates
     //     else {
     //         $start = $startDate->startOfDay();
@@ -105,5 +105,16 @@ class Batch extends Model
     public function scopeUpcoming($query)
     {
         return $query->whereDate('start_date', '>=', now())->orderBy('start_date');
+    }
+
+
+    /**
+     * Get the user that owns the Batch
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function trainer()
+    {
+        return $this->belongsTo(User::class, 'user_id')->where('type', 'trainer');
     }
 }

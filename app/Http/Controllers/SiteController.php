@@ -40,7 +40,7 @@ class SiteController extends Controller
 
     public function upcomingBatchDetails($slug){
 
-        $data['batch'] = Batch::where('slug', $slug)->first();
+        $data['batch'] = Batch::with(['trainer'])->where('slug', $slug)->first();
         return view('batch_details', $data);
     }
     public function registrationMessage(Request $request)
