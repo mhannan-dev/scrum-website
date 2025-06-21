@@ -32,8 +32,16 @@ class SiteController extends Controller
             ->get();
 
         $data['upcomingBatches'] = Batch::where('status',1)->get();
+        $data['page_name'] = 'home';
 
-        return view('welcome', $data);
+        return view('index', $data);
+    }
+
+
+    public function upcomingBatchDetails($slug){
+
+        $data['batch'] = Batch::where('slug', $slug)->first();
+        return view('batch_details', $data);
     }
     public function registrationMessage(Request $request)
     {

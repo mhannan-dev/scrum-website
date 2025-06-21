@@ -19,6 +19,7 @@ use App\Http\Controllers\TestimonialController;
 // });
 
 Route::get('/', [SiteController::class, 'welcome'])->name('welcome');
+Route::get('batch-details/{slug?}', [SiteController::class, 'upcomingBatchDetails'])->name('upcoming.batch.details');
 Route::post('registration-message', [SiteController::class, 'registrationMessage'])->name('registration.message');
 
 
