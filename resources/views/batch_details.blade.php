@@ -227,8 +227,6 @@
                         </div>
                     </div>
                 </div>
-
-               
             </div>
 
             <div class="col-lg-4">
@@ -247,10 +245,7 @@
                             <a href="#" class="btn btn-primary w-100 mb-2">
                                 <i class="fas fa-user-plus me-2"></i> Enroll Now
                             </a>
-                            {{-- This button will now use #7a6ad8 due to .btn-outline-primary override --}}
-                            <a href="#" class="btn btn-outline-primary w-100">
-                                <i class="fas fa-question-circle me-2"></i> Ask Questions
-                            </a>
+                           
                         </div>
 
                         <hr>
