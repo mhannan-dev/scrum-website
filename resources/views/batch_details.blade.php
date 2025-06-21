@@ -1,3 +1,8 @@
+You're looking to display a `discounted_price` in addition to the `price` and `original_price`. I've updated the pricing section in the provided code to show the `discounted_price`.
+
+-----
+
+```html
 @extends('layouts.front_layout')
 
 @push('styles')
@@ -232,10 +237,16 @@
                                 class="img-fluid rounded mb-3">
 
                             <div class="d-flex justify-content-center align-items-center mb-3">
-                                {{-- Dynamic pricing --}}
-                                <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->price ?? 0, 0) }}</h3>
-                                @if($batch->original_price && $batch->original_price > $batch->price)
-                                    <del class="text-muted">৳{{ number_format($batch->original_price, 0) }}</del>
+                                {{-- Display discounted_price if available and different from the regular price --}}
+                                @if(isset($batch->discounted_price) && $batch->discounted_price < ($batch->price ?? 0))
+                                    <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->discounted_price, 0) }}</h3>
+                                    <del class="text-muted">৳{{ number_format($batch->price ?? 0, 0) }}</del>
+                                @else
+                                    {{-- If no discounted_price, or if it's not actually a discount, just show the regular price --}}
+                                    <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->price ?? 0, 0) }}</h3>
+                                    @if(isset($batch->original_price) && $batch->original_price > ($batch->price ?? 0))
+                                        <del class="text-muted">৳{{ number_format($batch->original_price, 0) }}</del>
+                                    @endif
                                 @endif
                             </div>
 
@@ -271,12 +282,12 @@
                             </ul>
                         </div>
 
-                        <hr>
+                        {{-- <hr>
 
                         <div class="instructor-info">
                             <h5 class="fw-bold mb-3">Instructor</h5>
                             <div class="d-flex align-items-start">
-                                {{-- Dynamic instructor image --}}
+
                                 <img src="{{ $batch->trainer->image_url ?? 'https://via.placeholder.com/80?text=Trainer' }}" alt="Instructor" class="rounded-circle me-3"
                                     width="80">
                                 <div>
@@ -286,12 +297,11 @@
                                         <span class="badge bg-light text-dark me-2 small">
                                             <i class="fas fa-star text-warning"></i> {{ number_format($batch->trainer->rating ?? 0, 1) }}
                                         </span>
-                                        {{-- Removed temporary .test class --}}
                                         <span class="badge bg-light text-dark small">
                                             <i class="fas fa-users"></i> {{ number_format($batch->trainer->total_students ?? 0, 0) }}+ students
                                         </span>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -303,3 +313,4 @@
     {{-- Add some space at the bottom before the footer --}}
     <div style="height: 50px;"></div>
 @endsection
+```
