@@ -1,48 +1,52 @@
-You're looking to display a `discounted_price` in addition to the `price` and `original_price`. I've updated the pricing section in the provided code to show the `discounted_price`.
-
------
-
-```html
 @extends('layouts.front_layout')
 
 @push('styles')
     <style>
         body {
             /* This padding-top will push the content down, clearing the fixed header.
-               Adjust this value based on the final height of your fixed header.
-               The .background-header has a height of 120px.
-            */
-            padding-top: 120px; /* Adjust this value as needed to clear your header */
+                   Adjust this value based on the final height of your fixed header.
+                   The .background-header has a height of 120px.
+                */
+            padding-top: 120px;
+            /* Adjust this value as needed to clear your header */
         }
 
         /* --- Custom Color Overrides for Bootstrap Classes --- */
         /* Background Primary */
         .bg-primary {
-            background-color: #7a6ad8 !important; /* Your custom color */
+            background-color: #7a6ad8 !important;
+            /* Your custom color */
         }
 
         /* Text Primary */
         .text-primary {
-            color: #7a6ad8 !important; /* Your custom color */
+            color: #7a6ad8 !important;
+            /* Your custom color */
         }
 
         /* Button Primary */
         .btn-primary {
-            background-color: #7a6ad8; /* Your custom color */
-            border-color: #7a6ad8; /* Border matches background */
+            background-color: #7a6ad8;
+            /* Your custom color */
+            border-color: #7a6ad8;
+            /* Border matches background */
         }
 
         .btn-primary:hover {
-            background-color: #6c63ff; /* Slightly darker/different shade for hover */
+            background-color: #6c63ff;
+            /* Slightly darker/different shade for hover */
             border-color: #6c63ff;
         }
 
-        .btn-primary:focus, .btn-primary.focus {
-            box-shadow: 0 0 0 0.25rem rgba(122, 106, 216, 0.5); /* Custom focus ring color */
+        .btn-primary:focus,
+        .btn-primary.focus {
+            box-shadow: 0 0 0 0.25rem rgba(122, 106, 216, 0.5);
+            /* Custom focus ring color */
         }
 
-        .btn-primary:active, .btn-primary.active,
-        .show > .btn-primary.dropdown-toggle {
+        .btn-primary:active,
+        .btn-primary.active,
+        .show>.btn-primary.dropdown-toggle {
             background-color: #6c63ff;
             border-color: #6c63ff;
         }
@@ -50,19 +54,27 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
 
         /* Button Outline Primary */
         .btn-outline-primary {
-            color: #7a6ad8; /* Text color */
-            border-color: #7a6ad8; /* Border color */
+            color: #7a6ad8;
+            /* Text color */
+            border-color: #7a6ad8;
+            /* Border color */
         }
 
         .btn-outline-primary:hover {
-            color: #fff; /* Text color on hover */
-            background-color: #7a6ad8; /* Background on hover */
-            border-color: #7a6ad8; /* Border on hover */
+            color: #fff;
+            /* Text color on hover */
+            background-color: #7a6ad8;
+            /* Background on hover */
+            border-color: #7a6ad8;
+            /* Border on hover */
         }
 
-        .btn-outline-primary:focus, .btn-outline-primary.focus {
-            box-shadow: 0 0 0 0.25rem rgba(122, 106, 216, 0.5); /* Custom focus ring color */
+        .btn-outline-primary:focus,
+        .btn-outline-primary.focus {
+            box-shadow: 0 0 0 0.25rem rgba(122, 106, 216, 0.5);
+            /* Custom focus ring color */
         }
+
         /* --- End Custom Color Overrides --- */
 
         .accordion-button:not(.collapsed) {
@@ -76,12 +88,15 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
 
         /* Header Styles */
         .header-area {
-            position: fixed; /* Changed from absolute to fixed */
+            position: fixed;
+            /* Changed from absolute to fixed */
             background-color: #7a6ad8;
-            top: 0; /* Changed from 40px to 0 to remove space above */
+            top: 0;
+            /* Changed from 40px to 0 to remove space above */
             left: 0;
             right: 0;
-            width: 100%; /* Ensure it spans the full width */
+            width: 100%;
+            /* Ensure it spans the full width */
             z-index: 100;
             -webkit-transition: all .5s ease 0s;
             -moz-transition: all .5s ease 0s;
@@ -107,20 +122,25 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
         .header-area .main-nav {
             background: transparent;
             display: flex;
-            align-items: center; /* Vertically centers items in the nav */
-            justify-content: space-between; /* Distributes space between logo, company-brand-name, and nav links */
+            align-items: center;
+            /* Vertically centers items in the nav */
+            justify-content: space-between;
+            /* Distributes space between logo, company-brand-name, and nav links */
         }
 
         /* Updated class name for clarity */
         .header-area .main-nav .company-brand-name {
-            display: flex; /* Enable flexbox for inner alignment */
-            align-items: center; /* Vertically center the h3 inside */
+            display: flex;
+            /* Enable flexbox for inner alignment */
+            align-items: center;
+            /* Vertically center the h3 inside */
             width: 100%;
             margin-left: 10px;
         }
 
         .header-area .main-nav .company-brand-name h3 {
-            margin-bottom: 0; /* Remove default bottom margin from h3 */
+            margin-bottom: 0;
+            /* Remove default bottom margin from h3 */
         }
     </style>
 @endpush
@@ -130,25 +150,7 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <nav class="main-nav py-4">
-                        <a href="http://localhost:8001" class="logo">
-                            <img src="http://localhost:8001/frontend/assets/images/logo.png" style="width:90px" alt="">
-                        </a>
-                        {{-- Changed class name from search-input to company-brand-name for better semantics --}}
-                        <div class="company-brand-name">
-                            <h3 style="color: #fff;">Global Experts Ltd.</h3>
-                        </div>
-                        <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="#courses">Courses</a></li>
-                            <li class="scroll-to-section"><a href="#team">Team</a></li>
-                            <li class="scroll-to-section"><a href="#events">Batch</a></li>
-                            <li class="scroll-to-section"><a href="#contact">Register Now!</a></li>
-                        </ul>
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                    </nav>
+                    @include('layouts/front_nav')
                 </div>
             </div>
         </div>
@@ -165,22 +167,27 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
         <div class="row">
             <div class="col-lg-8">
                 <div class="mb-4">
-                    <h1 class="fw-bold mb-3">{{ $batch->title ?? "" }}</h1>
+                    <h1 class="fw-bold mb-3">{{ $batch->title ?? '' }}</h1>
                     <div class="d-flex align-items-center mb-3">
                         {{-- This badge will now use #7a6ad8 due to .bg-primary override --}}
                         <span class="badge bg-primary me-3">{{ $batch->course->name ?? 'N/A' }}</span>
                         {{-- This text will now use #7a6ad8 due to .text-primary override --}}
-                        <span><i class="fas fa-chalkboard-teacher text-primary me-2"></i>Instructor: {{ $batch->trainer->name ?? "N/A" }}</span>
+                        <span><i class="fas fa-chalkboard-teacher text-primary me-2"></i>Instructor:
+                            {{ $batch->trainer->name ?? 'N/A' }}</span>
+                    </div>
+                </div>
+                @if (!@empty($batch->course->description))
+
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title mb-3">About Course</h3>
+                        <p>{{ $batch->course->description ?? 'No description available for this batch. This intensive batch will provide comprehensive training in relevant skills and technologies.' }}
+                        </p>
                     </div>
                 </div>
 
-                {{-- Uncommented and added dynamic content for About This Batch --}}
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <h3 class="card-title mb-3">About This Batch</h3>
-                        <p>{{ $batch->description ?? 'No description available for this batch. This intensive batch will provide comprehensive training in relevant skills and technologies.' }}</p>
-                    </div>
-                </div>
+                @endif
 
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
@@ -189,20 +196,23 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="far fa-calendar-alt text-primary me-2"></i>
-                                <strong>Start Date:</strong> {{ \Carbon\Carbon::parse($batch->start_date)->format('F j, Y') ?? 'N/A' }}
+                                    <strong>Start Date:</strong>
+                                    {{ \Carbon\Carbon::parse($batch->start_date)->format('F j, Y') ?? 'N/A' }}
 
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="far fa-calendar-alt text-primary me-2"></i>
-                                    <strong>End Date:</strong> {{ \Carbon\Carbon::parse($batch->end_date)->format('F j, Y') ?? 'N/A' }}
+                                    <strong>End Date:</strong>
+                                    {{ \Carbon\Carbon::parse($batch->end_date)->format('F j, Y') ?? 'N/A' }}
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded">
                                     <i class="far fa-clock text-primary me-2"></i>
-                                    <strong>Class Time:</strong> {{ $batch->start_time ?? 'N/A' }} - {{ $batch->end_time ?? 'N/A' }}
+                                    <strong>Class Time:</strong> {{ $batch->start_time ?? 'N/A' }} -
+                                    {{ $batch->end_time ?? 'N/A' }}
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -233,18 +243,26 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
                     <div class="card-body">
                         <div class="text-center mb-4">
                             {{-- Dynamic course image --}}
-                            <img src="{{ $batch->course->image_url ?? 'https://via.placeholder.com/300x200?text=Course+Image' }}" alt="Course Image"
-                                class="img-fluid rounded mb-3">
+
+
+                            @if ($batch->course->image && file_exists(public_path('storage/' . $batch->course->image)))
+                                <img src="{{ asset('storage/' . $batch->course->image) }}" alt="{{ $batch->course->name }}"
+                                    class="img-fluid rounded mb-3">
+                            @else
+                                <span class="text-muted">No Image</span>
+                            @endif
+
 
                             <div class="d-flex justify-content-center align-items-center mb-3">
                                 {{-- Display discounted_price if available and different from the regular price --}}
-                                @if(isset($batch->discounted_price) && $batch->discounted_price < ($batch->price ?? 0))
-                                    <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->discounted_price, 0) }}</h3>
+                                @if (isset($batch->discounted_price) && $batch->discounted_price < ($batch->price ?? 0))
+                                    <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->discounted_price, 0) }}
+                                    </h3>
                                     <del class="text-muted">৳{{ number_format($batch->price ?? 0, 0) }}</del>
                                 @else
                                     {{-- If no discounted_price, or if it's not actually a discount, just show the regular price --}}
                                     <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->price ?? 0, 0) }}</h3>
-                                    @if(isset($batch->original_price) && $batch->original_price > ($batch->price ?? 0))
+                                    @if (isset($batch->original_price) && $batch->original_price > ($batch->price ?? 0))
                                         <del class="text-muted">৳{{ number_format($batch->original_price, 0) }}</del>
                                     @endif
                                 @endif
@@ -257,19 +275,20 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
 
                         </div>
 
-                        <hr>
+
 
                         <div class="mb-4">
-                            <h5 class="fw-bold mb-3">Batch Information</h5>
-                            <ul class="list-unstyled">
-                                {{-- These icons will now use #7a6ad8 due to .text-primary override --}}
+                            {{-- <h5 class="fw-bold mb-3">Course Details</h5> --}}
+                            <p>{{ $batch->course->short_description }}</p>
+                            {{-- <ul class="list-unstyled">
                                 <li class="mb-2">
                                     <i class="fas fa-map-marker-alt text-primary me-2"></i>
                                     <strong>Location:</strong> {{ $batch->location ?? 'Online (Zoom)' }}
                                 </li>
                                 <li class="mb-2">
                                     <i class="fas fa-users text-primary me-2"></i>
-                                    <strong>Seats Available:</strong> {{ $batch->enrolled_students ?? 0 }}/{{ $batch->max_students ?? 'N/A' }}
+                                    <strong>Seats Available:</strong>
+                                    {{ $batch->enrolled_students ?? 0 }}/{{ $batch->max_students ?? 'N/A' }}
                                 </li>
                                 <li class="mb-2">
                                     <i class="fas fa-language text-primary me-2"></i>
@@ -279,7 +298,7 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
                                     <i class="fas fa-certificate text-primary me-2"></i>
                                     <strong>Certificate:</strong> {{ $batch->certificate_included ? 'Yes' : 'No' }}
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div>
 
                         {{-- <hr>
@@ -302,15 +321,14 @@ You're looking to display a `discounted_price` in addition to the `price` and `o
                                         </span>
                                     </div>
                                 </div> --}}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
 
     {{-- Add some space at the bottom before the footer --}}
     <div style="height: 50px;"></div>
 @endsection
-```
