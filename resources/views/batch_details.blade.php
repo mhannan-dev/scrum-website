@@ -4,9 +4,9 @@
     <style>
         body {
             /* This padding-top will push the content down, clearing the fixed header.
-                   Adjust this value based on the final height of your fixed header.
-                   The .background-header has a height of 120px.
-                */
+                       Adjust this value based on the final height of your fixed header.
+                       The .background-header has a height of 120px.
+                    */
             padding-top: 120px;
             /* Adjust this value as needed to clear your header */
         }
@@ -177,16 +177,13 @@
                     </div>
                 </div>
                 @if (!@empty($batch->course->description))
-
-
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <h3 class="card-title mb-3">About Course</h3>
-                        <p>{{ $batch->course->description ?? 'No description available for this batch. This intensive batch will provide comprehensive training in relevant skills and technologies.' }}
-                        </p>
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title mb-3">About Course</h3>
+                            <p>{{ $batch->course->description ?? 'No description available for this batch. This intensive batch will provide comprehensive training in relevant skills and technologies.' }}
+                            </p>
+                        </div>
                     </div>
-                </div>
-
                 @endif
 
                 <div class="card shadow-sm mb-4">
@@ -246,8 +243,8 @@
 
 
                             @if ($batch->course->image && file_exists(public_path('storage/' . $batch->course->image)))
-                                <img src="{{ asset('storage/' . $batch->course->image) }}" alt="{{ $batch->course->name }}"
-                                    class="img-fluid rounded mb-3">
+                                <img src="{{ asset('storage/' . $batch->course->image) }}"
+                                    alt="{{ $batch->course->name }}" class="img-fluid rounded mb-3">
                             @else
                                 <span class="text-muted">No Image</span>
                             @endif
@@ -301,32 +298,34 @@
                             </ul> --}}
                         </div>
 
-                        {{-- <hr>
+                        {{-- <hr> --}}
 
-                        <div class="instructor-info">
+                        {{-- <div class="instructor-info">
                             <h5 class="fw-bold mb-3">Instructor</h5>
                             <div class="d-flex align-items-start">
 
-                                <img src="{{ $batch->trainer->image_url ?? 'https://via.placeholder.com/80?text=Trainer' }}" alt="Instructor" class="rounded-circle me-3"
-                                    width="80">
+                                <img src="{{ $batch->trainer->image_url ?? 'https://via.placeholder.com/80?text=Trainer' }}"
+                                    alt="Instructor" class="rounded-circle me-3" width="80">
                                 <div>
                                     <h6 class="mb-1">{{ $batch->trainer->name ?? 'N/A' }}</h6>
                                     <p class="text-muted small mb-2">{{ $batch->trainer->title ?? 'Instructor' }}</p>
                                     <div class="d-flex">
                                         <span class="badge bg-light text-dark me-2 small">
-                                            <i class="fas fa-star text-warning"></i> {{ number_format($batch->trainer->rating ?? 0, 1) }}
+                                            <i class="fas fa-star text-warning"></i>
+                                            {{ number_format($batch->trainer->rating ?? 0, 1) }}
                                         </span>
                                         <span class="badge bg-light text-dark small">
-                                            <i class="fas fa-users"></i> {{ number_format($batch->trainer->total_students ?? 0, 0) }}+ students
+                                            <i class="fas fa-users"></i>
+                                            {{ number_format($batch->trainer->total_students ?? 0, 0) }}+ students
                                         </span>
                                     </div>
-                                </div> --}}
+                                </div>
+                            </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 
     {{-- Add some space at the bottom before the footer --}}

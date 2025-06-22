@@ -17,13 +17,19 @@
     <!-- ***** Serach Start ***** -->
     <!-- ***** Menu Start ***** -->
     <ul class="nav">
-        <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-        <!--  <li class="scroll-to-section"><a href="#services">Services</a></li> -->
-        <li class="scroll-to-section"><a href="#courses">Courses</a></li>
-        <li class="scroll-to-section"><a href="#team">Team</a></li>
-        <li class="scroll-to-section"><a href="#events">Batch</a></li>
-        <li class="scroll-to-section"><a href="#contact">Register Now!</a></li>
+        <li class="scroll-to-section">
+            <a href="{{ @$page_name !== 'home' ? url('/') : '#top' }}"
+                class="{{ @$page_name === 'home' ? 'active' : '' }}">Home</a>
+        </li>
+        <li class="scroll-to-section"><a href="{{ @$page_name === 'home' ? '#courses' : url('/#courses') }}">Courses</a>
+        </li>
+        <li class="scroll-to-section"><a href="{{ @$page_name === 'home' ? '#team' : url('/#team') }}">Team</a></li>
+        <li class="scroll-to-section"><a href="{{ @$page_name === 'home' ? '#events' : url('/#events') }}">Batch</a>
+        </li>
+        <li class="scroll-to-section"><a href="{{ @$page_name === 'home' ? '#contact' : url('/#contact') }}">Register
+                Now!</a></li>
     </ul>
+
     <a class='menu-trigger'>
         <span>Menu</span>
     </a>
