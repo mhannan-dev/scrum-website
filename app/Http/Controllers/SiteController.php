@@ -43,6 +43,13 @@ class SiteController extends Controller
         $data['batch'] = Batch::with(['trainer'])->where('slug', $slug)->first();
         return view('batch_details', $data);
     }
+    public function courseDetails($slug){
+
+        $data['batch'] = Course::where('slug', $slug)->first();
+        return view('course_details', $data);
+    }
+
+
     public function registrationMessage(Request $request)
     {
         try {

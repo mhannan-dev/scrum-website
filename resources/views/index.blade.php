@@ -104,7 +104,6 @@
                 </div>
             </div>
 
-
             <ul class="event_filter">
                 <li><a class="is_active" href="#!" data-filter="*">Show All</a></li>
                 @foreach ($categories as $category)
@@ -122,9 +121,8 @@
                         class="col-lg-4 col-md-6 align-self-center mb-30 event_outer {{ Str::slug($course->category->title) }}">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="#">
+                                <a href="{{ route('course.details', $category->slug) }}">
                                     <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}">
-
                                 </a>
                                 <span class="category">{{ $course->category->title }}</span>
                                 <!-- <span class="price">

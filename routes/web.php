@@ -12,14 +12,10 @@ use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TestimonialController;
 
-// Route::get('/', function () {
-//     $data['testimonials'] = Testimonial::get();
-//     $data['trainers'] = User::with(['category'])->where('type', 'trainer')->get();
-//     return view('welcome', $data);
-// });
 
 Route::get('/', [SiteController::class, 'welcome'])->name('welcome');
 Route::get('batch/{slug?}', [SiteController::class, 'upcomingBatchDetails'])->name('upcoming.batch.details');
+Route::get('course/{slug?}', [SiteController::class, 'courseDetails'])->name('course.details');
 Route::post('registration-message', [SiteController::class, 'registrationMessage'])->name('registration.message');
 
 
