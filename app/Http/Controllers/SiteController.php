@@ -26,9 +26,6 @@ class SiteController extends Controller
             $query->where('status', 1);
         }])
             ->whereNull('parent_id')
-            // ->whereHas('courses', function ($query) {
-            //     $query->where('status', 1);
-            // })
             ->get();
 
         $data['upcomingBatches'] = Batch::where('status',1)->get();

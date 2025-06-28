@@ -19,7 +19,6 @@
                                     <div class="main-button">
                                         <a href="{{ $slider->main_button_link }}">{{ $slider->main_button_text }}</a>
                                     </div>
-
                                 </div>
                                 @endif
                             </div>
