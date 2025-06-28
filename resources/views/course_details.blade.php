@@ -46,7 +46,7 @@
             color: black;
         }
 
-       /* Header Styles */
+        /* Header Styles */
         .header-area {
             position: fixed;
             /* Changed from absolute to fixed */
@@ -108,8 +108,7 @@
 </head>
 
 <body>
-
-    <!-- ***** Preloader Start ***** -->
+    {{-- Preloader --}}
     <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
             <span class="dot"></span>
@@ -121,6 +120,7 @@
         </div>
     </div>
 
+    {{-- Header Navigation --}}
     <header class="header-area header-sticky">
         <div class="container">
             <div class="row">
@@ -130,94 +130,127 @@
             </div>
         </div>
     </header>
-    <div class="container" style="margin-top: 10rem; !important;">
-        {{-- This breadcrumb will now use #7a6ad8 due to .breadcrumb override --}}
+
+    <div class="container mt-5">
+        {{-- Breadcrumb --}}
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Courses</a></li>
-                <li class="breadcrumb-item"><a href="#">Web Development</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Course Details</li>
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Courses</a></li>
+                <li class="breadcrumb-item">
+                    <a href="#">
+                        {{ $course->category->name ?? 'N/A' }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $course->name ?? '' }}</li>
             </ol>
         </nav>
+
         <div class="row">
+            {{-- LEFT COLUMN --}}
             <div class="col-lg-8">
+                {{-- Course Header --}}
                 <div class="mb-4">
-                    <h1 class="fw-bold mb-3">Complete Web Development Bootcamp</h1>
+                    <h1 class="fw-bold mb-3">{{ $course->name ?? '' }}</h1>
                     <div class="d-flex align-items-center mb-3">
-                        <span class="badge bg-primary me-3">Web Development</span>
-                        <span><i class="fas fa-chalkboard-teacher text-primary me-2"></i>Instructor: John Smith</span>
+                        <span class="badge bg-primary me-3">
+                            {{ $course->category->title ?? 'Web Development' }}
+                        </span>
+                        <span>
+                            <i class="fas fa-chalkboard-teacher text-primary me-2"></i>
+                            Instructor: {{ $course->trainer->name ?? 'John Smith' }}
+                        </span>
                     </div>
                 </div>
 
+                {{-- About Course --}}
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
                         <h3 class="card-title mb-3">About Course</h3>
-                        <p>This intensive bootcamp will take you from beginner to professional web developer. You'll
-                            learn HTML, CSS, JavaScript, React, Node.js, and much more through hands-on projects and
-                            exercises.</p>
+                        <p>
+                            {!! nl2br(e($course->short_description ?? '')) !!}
+                        </p>
                     </div>
                 </div>
 
+                {{-- Schedule & Timing --}}
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
-                        <h3 class="card-title mb-3">Schedule & Timing</h3>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="p-3 bg-light rounded">
-                                    <i class="far fa-calendar-alt text-primary me-2"></i>
-                                    <strong>Start Date:</strong> June 15, 2023
+                        <h3 class="card-title mb-3">Batch Schedule & Timing</h3>
+
+                        @if ($course->batches->count())
+                            @foreach ($course->batches as $batch)
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <i class="far fa-calendar-alt text-primary me-2"></i>
+                                            <strong>Start Date:</strong>
+                                            {{ \Carbon\Carbon::parse($batch->start_date)->format('F j, Y') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <i class="far fa-calendar-alt text-primary me-2"></i>
+                                            <strong>End Date:</strong>
+                                            {{ \Carbon\Carbon::parse($batch->end_date)->format('F j, Y') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <i class="far fa-clock text-primary me-2"></i>
+                                            <strong>Class Time:</strong> {{ $batch->class_time ?? 'N/A' }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <i class="fas fa-calendar-week text-primary me-2"></i>
+                                            <strong>Schedule:</strong> {{ $batch->schedule_days ?? 'N/A' }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <i class="fas fa-clock text-primary me-2"></i>
+                                            <strong>Duration:</strong> {{ $batch->duration ?? 'N/A' }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <i class="fas fa-globe text-primary me-2"></i>
+                                            <strong>Timezone:</strong> {{ $batch->timezone ?? 'Asia/Dhaka' }}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="p-3 bg-light rounded">
-                                    <i class="far fa-calendar-alt text-primary me-2"></i>
-                                    <strong>End Date:</strong> August 15, 2023
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="p-3 bg-light rounded">
-                                    <i class="far fa-clock text-primary me-2"></i>
-                                    <strong>Class Time:</strong> 10:00 AM - 1:00 PM
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="p-3 bg-light rounded">
-                                    <i class="fas fa-calendar-week text-primary me-2"></i>
-                                    <strong>Schedule:</strong> Monday, Wednesday, Friday
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="p-3 bg-light rounded">
-                                    <i class="fas fa-clock text-primary me-2"></i>
-                                    <strong>Duration:</strong> 3 months
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="p-3 bg-light rounded">
-                                    <i class="fas fa-globe text-primary me-2"></i>
-                                    <strong>Timezone:</strong> Asia/Dhaka
-                                </div>
-                            </div>
-                        </div>
+                                <hr>
+                            @endforeach
+                        @else
+                            <p>No schedule available for this course at the moment.</p>
+                        @endif
                     </div>
                 </div>
             </div>
 
+            {{-- RIGHT COLUMN --}}
             <div class="col-lg-4">
                 <div class="card shadow-sm sticky-top" style="top: 120px;">
                     <div class="card-body">
                         <div class="text-center mb-4">
-                            <img src="https://via.placeholder.com/400x225" alt="Course Image"
-                                class="img-fluid rounded mb-3">
+                            <img src="{{ asset('storage/' . ($course->image ?? 'images/placeholder.png')) }}"
+                                alt="{{ $course->name ?? '' }}" class="img-fluid rounded mb-3" />
 
                             <div class="d-flex justify-content-center align-items-center mb-3">
-                                <h3 class="text-danger mb-0 me-3">৳12,999</h3>
-                                <del class="text-muted">৳15,999</del>
+                                <h3 class="text-danger mb-0 me-3">
+                                    ৳{{ number_format($course->special_price ?? ($course->price ?? 0), 2) }}
+                                </h3>
+
+                                @if ($course->special_price)
+                                    <del class="text-muted">
+                                        ৳{{ number_format($course->price ?? 0, 2) }}
+                                    </del>
+                                @endif
                             </div>
 
-                            <a href="#" class="btn btn-primary w-100 mb-2">
+                            {{-- <a href="#" class="btn btn-primary w-100 mb-2">
                                 <i class="fas fa-user-plus me-2"></i> Enroll Now
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>

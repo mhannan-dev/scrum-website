@@ -42,7 +42,7 @@ class SiteController extends Controller
     }
     public function courseDetails($slug){
 
-        $data['batch'] = Course::where('slug', $slug)->first();
+        $data['course'] = Course::with(['category'])->where('slug', $slug)->first();
         return view('course_details', $data);
     }
 

@@ -34,6 +34,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'parent_id' => 'nullable|exists:categories,id',

@@ -27,6 +27,7 @@
                         </thead>
                         <tbody>
                             @forelse ($courses as $index => $course)
+                            {{-- @dd($course); --}}
                                 <tr>
                                     <td>{{ ($courses->currentPage() - 1) * $courses->perPage() + $index + 1 }}</td>
                                     <td>{{ $course->name }}</td>

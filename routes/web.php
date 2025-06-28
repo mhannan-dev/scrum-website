@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User;
-use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\BatchController;

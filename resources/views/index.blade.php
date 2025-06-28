@@ -120,7 +120,7 @@
                         class="col-lg-4 col-md-6 align-self-center mb-30 event_outer {{ Str::slug($course->category->title) }}">
                         <div class="events_item">
                             <div class="thumb">
-                                <a href="{{ route('course.details', $category->slug) }}">
+                                <a href="{{ route('course.details', $course->slug) }}">
                                     <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}">
                                 </a>
                                 <span class="category">{{ $course->category->title }}</span>
