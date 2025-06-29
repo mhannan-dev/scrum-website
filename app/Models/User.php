@@ -25,7 +25,6 @@ class User extends Authenticatable
         'can_login',           // New field added
         'slug',                // New field added
         'image',               // New field added
-        'social_links',       // New field added
         'category_id',        // New field added
         'status',             // New field added
     ];
@@ -79,4 +78,15 @@ class User extends Authenticatable
     //         ]
     //         : null;
     // }
+
+
+    /**
+     * Get all of the social_links for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function social_links()
+    {
+        return $this->hasMany(UserSocial::class);
+    }
 }

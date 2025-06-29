@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\UserSocial;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class TrainerController extends Controller
@@ -27,32 +29,80 @@ class TrainerController extends Controller
     {
         $data['pageTitle'] = "Create User";
         $data['buttonText'] = "Save";
-        $data['parentCategories'] = Category::orderBy('title','asc')->get();
+        $data['parentCategories'] = Category::orderBy('title', 'asc')->get();
         return view('admin.trainers.create', $data);
     }
+
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'nullable|string|max:255',
-            'social_links' => 'nullable|array',
+            'email' => 'nullable|email|max:255',
             'category_id' => 'nullable|exists:categories,id',
+            'position' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+
+            'social_name' => 'nullable|array',
+            'social_name.*' => 'nullable|string|max:255',
+            'link' => 'nullable|array',
+            'link.*' => 'nullable|url|max:2048',
         ]);
 
-        // Handle image upload with UUID
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $filename = Str::uuid() . '.' . $extension;
-            $path = $image->storeAs('trainers', $filename, 'public');
-            $validated['image'] = $path;
+        DB::beginTransaction();
+
+        try {
+            // Handle image upload with UUID
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $extension = $image->getClientOriginalExtension();
+                $filename = Str::uuid() . '.' . $extension;
+                $path = $image->storeAs('trainers', $filename, 'public');
+                $validated['image'] = $path;
+            }
+
+            $validated['type'] = 'trainer';
+
+            // Create the trainer
+            $trainer = User::create($validated);
+
+            // Save social links
+            $platforms = $request->input('social_name', []);
+            $urls = $request->input('link', []);
+
+            foreach ($platforms as $index => $platform) {
+                $url = $urls[$index] ?? null;
+
+                if (!empty($platform) && !empty($url)) {
+                    UserSocial::create([
+                        'user_id' => $trainer->id,
+                        'platform' => $platform,
+                        'url' => $url,
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()
+                ->route('dashboard.trainers.index')
+                ->with('success', 'Trainer created successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Optionally delete uploaded image if rollback
+            if (!empty($path)) {
+                Storage::disk('public')->delete($path);
+            }
+
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Something went wrong: ' . $e->getMessage()])
+                ->withInput();
         }
-        $validated['type'] = "trainer";
-        User::create($validated);
-        return redirect()->route('dashboard.trainers.index')->with('success', 'Trainer created successfully.');
     }
+
+
 
 
     /**
@@ -69,9 +119,9 @@ class TrainerController extends Controller
     public function edit(User $trainer)
     {
         $data['buttonText'] = "Update";
-        $data['trainer'] = $trainer;
+        $data['trainer'] = $trainer->load(['category', 'social_links']);
         $data['pageTitle'] = "Edit User";
-        $data['parentCategories'] = Category::orderBy('title','asc')->get();
+        $data['parentCategories'] = Category::orderBy('title', 'asc')->get();
         return view('admin.trainers.edit', $data);
     }
 
