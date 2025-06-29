@@ -51,6 +51,12 @@
                 value="{{ old('email', $trainer->email) }}" required>
         </div>
 
+    <div class="mb-3">
+                <label for="name" class="form-label">Position <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="position" id="position" value="{{ old('position', $trainer->position) }}"
+                    required>
+            </div>
+            
         <div class="mb-3">
             <label for="image" class="form-label">Photo</label>
             <input type="file" class="form-control" name="image" id="image">

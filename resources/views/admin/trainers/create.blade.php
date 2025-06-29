@@ -46,6 +46,11 @@
                 <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}"
                     required>
             </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Position <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="position" id="position" value="{{ old('position') }}"
+                    required>
+            </div>
 
             <div class="mb-3">
                 <label for="image" class="form-label">Profile Photo</label>

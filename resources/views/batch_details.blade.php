@@ -133,8 +133,7 @@
     <div class="container" style="margin-top: 10rem !important;">
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Courses</a></li>
-                <li class="breadcrumb-item"><a href="#">Web Development</a></li>
+                <li class="breadcrumb-item"><a href="{{ url("/") }}">Courses</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Batch Details</li>
             </ol>
         </nav>
@@ -154,7 +153,7 @@
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
                             <h3 class="card-title mb-3">About Course</h3>
-                            <p>{{ $batch->course->description ?? 'No description available for this batch. This intensive batch will provide comprehensive training in relevant skills and technologies.' }}
+                            <p>{!! $batch->course->description !!}
                             </p>
                         </div>
                     </div>
@@ -225,19 +224,22 @@
 
 
                             <div class="d-flex justify-content-center align-items-center mb-3">
-                                {{-- Display discounted_price if available and different from the regular price --}}
-                                @if (isset($batch->discounted_price) && $batch->discounted_price < ($batch->price ?? 0))
-                                    <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->discounted_price, 0) }}
-                                    </h3>
-                                    <del class="text-muted">৳{{ number_format($batch->price ?? 0, 0) }}</del>
-                                @else
-                                    {{-- If no discounted_price, or if it's not actually a discount, just show the regular price --}}
-                                    <h3 class="text-danger mb-0 me-3">৳{{ number_format($batch->price ?? 0, 0) }}</h3>
-                                    @if (isset($batch->original_price) && $batch->original_price > ($batch->price ?? 0))
-                                        <del class="text-muted">৳{{ number_format($batch->original_price, 0) }}</del>
-                                    @endif
-                                @endif
-                            </div>
+    @if (!empty($batch->discounted_price) && $batch->discounted_price > 0)
+        {{-- Show discounted price --}}
+        <h3 class="text-danger mb-0 me-3">
+            ৳{{ number_format($batch->discounted_price, 0) }}
+        </h3>
+        @if (!empty($batch->price) && $batch->price > $batch->discounted_price)
+            <del class="text-muted">৳{{ number_format($batch->price, 0) }}</del>
+        @endif
+    @else
+        {{-- Show original price only --}}
+        <h3 class="text-danger mb-0 me-3">
+            ৳{{ number_format($batch->price ?? 0, 0) }}
+        </h3>
+    @endif
+</div>
+
 
                             {{-- This button will now use #7a6ad8 due to .btn-primary override --}}
                             <a href="#" class="btn btn-primary w-100 mb-2">
@@ -250,7 +252,7 @@
 
                         <div class="mb-4">
                             {{-- <h5 class="fw-bold mb-3">Course Details</h5> --}}
-                            <p>{{ $batch->course->short_description }}</p>
+                            <p>{!! $batch->course->short_description !!}</p>
 
                         </div>
 
