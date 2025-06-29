@@ -62,23 +62,6 @@ class User extends Authenticatable
         return $this->belongsTo(Category::class);
     }
 
-    // protected $appends = ['category_data'];
-    protected $casts = [
-        'social_links' => 'array', // ensures JSON is returned as array
-    ];
-
-
-    // public function getCategoryDataAttribute()
-    // {
-    //     return $this->category()->exists()
-    //         ? [
-    //             'id' => $this->category->id,
-    //             'title' => $this->category->title,
-    //             'slug' => $this->category->slug,
-    //         ]
-    //         : null;
-    // }
-
 
     /**
      * Get all of the social_links for the User
@@ -87,6 +70,6 @@ class User extends Authenticatable
      */
     public function social_links()
     {
-        return $this->hasMany(UserSocial::class);
+        return $this->hasMany(UserSocial::class, 'user_id', 'id');
     }
 }

@@ -3,12 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class UserSocial extends Model
 {
+    use HasFactory;
+    protected $table = 'user_socials';
     protected $fillable = [
         'user_id',
-        'platform',
-        'url',
+        'social_name',
+        'link',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

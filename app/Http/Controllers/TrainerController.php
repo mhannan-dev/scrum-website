@@ -22,17 +22,28 @@ class TrainerController extends Controller
         return view('admin.trainers.index', $data);
     }
 
-    /**
-     * Show the form for creating a new trainer.
-     */
     public function create()
     {
-        $data['pageTitle'] = "Create User";
+        $data['pageTitle'] = "Create trainer";
         $data['buttonText'] = "Save";
         $data['parentCategories'] = Category::orderBy('title', 'asc')->get();
+        $data['trainer'] = [];
+        $data['trainerSocialLinks'] = [];
         return view('admin.trainers.create', $data);
     }
 
+
+    public function edit(User $trainer)
+    {
+        $trainer->load(['category'])->toArray();
+
+        $data['buttonText'] = "Update";
+        $data['trainer'] = $trainer;
+        $data['pageTitle'] = "Edit User";
+        $data['parentCategories'] = Category::orderBy('title', 'asc')->get();
+        $data['trainerSocialLinks'] = $trainer->load(['social_links'])->toArray();
+        return view('admin.trainers.edit', $data);
+    }
 
     public function store(Request $request)
     {
@@ -69,15 +80,14 @@ class TrainerController extends Controller
             // Save social links
             $platforms = $request->input('social_name', []);
             $urls = $request->input('link', []);
-
             foreach ($platforms as $index => $platform) {
                 $url = $urls[$index] ?? null;
 
                 if (!empty($platform) && !empty($url)) {
                     UserSocial::create([
                         'user_id' => $trainer->id,
-                        'platform' => $platform,
-                        'url' => $url,
+                        'social_name' => $platform,
+                        'link' => $url,
                     ]);
                 }
             }
@@ -102,9 +112,6 @@ class TrainerController extends Controller
         }
     }
 
-
-
-
     /**
      * Display the specified trainer.
      */
@@ -113,35 +120,34 @@ class TrainerController extends Controller
         return view('admin.trainers.show', compact('trainer'));
     }
 
-    /**
-     * Show the form for editing the specified trainer.
-     */
-    public function edit(User $trainer)
-    {
-        $data['buttonText'] = "Update";
-        $data['trainer'] = $trainer->load(['category', 'social_links']);
-        $data['pageTitle'] = "Edit User";
-        $data['parentCategories'] = Category::orderBy('title', 'asc')->get();
-        return view('admin.trainers.edit', $data);
-    }
-
-
 
     public function update(Request $request, User $trainer)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'nullable|string|email|max:255|unique:users,email,' . $trainer->id,
-            'social_links' => 'nullable|array',
+            'position' => 'required|string|max:255',
+            'social_name.*' => 'nullable|string',
+            'link.*' => 'nullable|url',
             'category_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'status' => 'nullable',
+            'status' => 'nullable|boolean',
         ]);
 
-        // Handle social_links if stored as JSON
-        if ($request->has('social_links')) {
-            $validated['social_links'] = json_encode($request->social_links);
+        // Process social links: combine social_name and link arrays
+        $socialLinks = [];
+        if ($request->has('social_name') && is_array($request->social_name)) {
+            foreach ($request->social_name as $key => $socialName) {
+                if (!empty($socialName) && !empty($request->link[$key])) {
+                    $socialLinks[] = [
+                        'name' => $socialName,
+                        'link' => $request->link[$key],
+                    ];
+                }
+            }
         }
+        $validated['social_links'] = json_encode($socialLinks);
+
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -155,10 +161,7 @@ class TrainerController extends Controller
             $path = $image->storeAs('trainers', $filename, 'public');
             $validated['image'] = $path;
         }
-
-        // Checkbox handling
-        $validated['status'] = $request->has('status') ? 1 : 0;
-
+        $validated['status'] = $request->has('status');
         // Update trainer
         $trainer->fill($validated)->save();
 
