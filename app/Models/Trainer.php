@@ -27,7 +27,7 @@ class Trainer extends Model
             ]
             : null;
     }
-    
+
     protected static function booted()
     {
         static::creating(function ($trainer) {
