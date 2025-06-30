@@ -18,9 +18,12 @@ class SiteController extends Controller
     public function welcome()
     {
         $data['testimonials'] = Testimonial::get();
-        $data['trainers'] = User::with(['category'])->where('type', 'trainer')->get();
+        $data['trainers'] = User::with(['category', 'social_links'])
+            ->where('type', 'trainer')
+            ->get();
+
         $data['sliders'] = Slider::active()->inRandomOrder()->take(3)->get();
-        $data['courses'] = Course::where('status',1)->with(['category','trainer'])->get();
+        $data['courses'] = Course::where('status', 1)->with(['category', 'trainer'])->get();
 
         $data['categories'] = Category::with(['children', 'courses' => function ($query) {
             $query->where('status', 1);
@@ -28,19 +31,21 @@ class SiteController extends Controller
             ->whereNull('parent_id')
             ->get();
 
-        $data['upcomingBatches'] = Batch::where('status',1)->get();
+        $data['upcomingBatches'] = Batch::where('status', 1)->get();
         $data['page_name'] = 'home';
 
         return view('index', $data);
     }
 
 
-    public function upcomingBatchDetails($slug){
+    public function upcomingBatchDetails($slug)
+    {
 
         $data['batch'] = Batch::with(['trainer'])->where('slug', $slug)->first();
         return view('batch_details', $data);
     }
-    public function courseDetails($slug){
+    public function courseDetails($slug)
+    {
 
         $data['course'] = Course::with(['category'])->where('slug', $slug)->first();
         return view('course_details', $data);

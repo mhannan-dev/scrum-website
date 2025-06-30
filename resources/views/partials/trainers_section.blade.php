@@ -5,24 +5,28 @@
                 <div class="team-member">
                     <div class="main-content">
                         <img src="{{ $trainer->image ? url('storage/' . $trainer->image) : asset('frontend/assets/images/profile_blank.png') }}"
-                            alt="{{ $trainer->name }}"
-                            style="width: 100%; height: auto; object-fit: cover;">
+                            alt="{{ $trainer->name }}" style="width: 100%; height: auto; object-fit: cover;">
 
                         <span class="category">{{ $trainer->category->title ?? 'No Category' }}</span>
                         <h4>{{ $trainer->name ?? '' }}</h4>
 
-                        @php
-                            $links = is_array($trainer->social_links)
-                                ? $trainer->social_links
-                                : json_decode($trainer->social_links, true);
-                        @endphp
 
-                        @if (!empty($links))
+                        @if (!empty($trainer->social_links))
                             <ul class="social-icons">
-                                @foreach ($links as $platform => $url)
+                                @foreach ($trainer->social_links as $social)
                                     <li>
-                                        <a href="{{ $url }}" target="_blank">
-                                            <i class="fab fa-{{ strtolower($platform) }}"></i>
+                                        <a href="{{ $social->link }}" target="_blank">
+                                            @if ($social->social_name == 'Facebook')
+                                                <i class="fab fa-facebook"></i>
+                                            @endif
+
+                                            @if ($social->social_name == 'Youtube')
+                                                <i class="fab fa-youtube"></i>
+                                            @endif
+
+                                            @if ($social->social_name == 'Twitter')
+                                                <i class="fab fa-twitter"></i>
+                                            @endif
                                         </a>
                                     </li>
                                 @endforeach

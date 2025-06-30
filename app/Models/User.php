@@ -21,12 +21,12 @@ class User extends Authenticatable
         'position',
         'email',
         'password',
-        'type',                // New field added
-        'can_login',           // New field added
-        'slug',                // New field added
-        'image',               // New field added
-        'category_id',        // New field added
-        'status',             // New field added
+        'type',
+        'can_login',
+        'slug',
+        'image',
+        'category_id',
+        'status',
     ];
 
     /**
